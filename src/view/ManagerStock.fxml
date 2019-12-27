@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="717.0" stylesheets="@ManagerStockStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerInterfaceController">
+<BorderPane prefHeight="400.0" prefWidth="717.0" stylesheets="@ManagerStockStyle.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerInterfaceController">
    <top>
       <FlowPane fx:id="top" alignment="CENTER_LEFT" focusTraversable="true" hgap="20.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>

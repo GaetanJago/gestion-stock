@@ -3,3 +3,7 @@ bin/
 .classpath
 .project
 src/META-INF
+inv.vbs
+Launcher.lnk
+launcher.bat
+stock.jar

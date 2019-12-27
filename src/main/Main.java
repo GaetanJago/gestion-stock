@@ -1,5 +1,8 @@
 package main;
 
+import javafx.application.Application;
+import view.Interface;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -8,5 +11,6 @@ public class Main {
 		
 		em.close();
 		emf.close();*/
+		Application.launch(Interface.class,args);
 	}
 }

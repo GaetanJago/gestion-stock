@@ -28,6 +28,4 @@ public class Interface extends Application{
 			e.printStackTrace();
 		}
 	}
-	
-
 }
