@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="back" prefHeight="298.0" prefWidth="162.0" stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InterfaceController">
+   <top>
+      <FlowPane fx:id="top" alignment="CENTER" orientation="VERTICAL" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="433.0" text="Connexion" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="602.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="143.0" text="Email" />
+            <TextField id="email" promptText="Email" />
+            <Label text="Mot de passe">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <FlowPane.margin>
+                  <Insets top="20.0" />
+               </FlowPane.margin>
+            </Label>
+            <PasswordField prefHeight="25.0" prefWidth="211.0" promptText="Mot de passe" />
+            <Button fx:id="connect" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchConnect" prefHeight="25.0" prefWidth="88.0" text="Se connecter">
+               <FlowPane.margin>
+                  <Insets top="20.0" />
+               </FlowPane.margin>
+            </Button>
+         </children>
+      </FlowPane>
+   </center>
+</BorderPane>

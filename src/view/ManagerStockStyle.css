@@ -1,0 +1,11 @@
+#back{
+	-fx-background-color: linear-gradient(rgba(255, 255, 255, 255),  rgba(255, 255, 255, 255));
+}
+#top{
+	-fx-background-color: linear-gradient(rgba(12, 88, 219, 255),  rgba(78, 144, 185, 255));
+}
+/*
+.table-cell {
+	 -fx-alignment: CENTER;
+}
+*/
