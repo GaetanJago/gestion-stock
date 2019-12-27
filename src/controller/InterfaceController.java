@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
@@ -21,6 +22,9 @@ public class InterfaceController implements Initializable{
 	@FXML
 	private Button connect;
 	
+	@FXML private TextField email;
+	@FXML private TextField password;
+	
 	/**
 	 * Change panel for a specific connection
 	 * @param event
@@ -29,7 +33,13 @@ public class InterfaceController implements Initializable{
 	public void switchConnect(ActionEvent event) {
 		System.out.println("connection");
 		try {
-			URL url = new File("src/view/ManagerStock.fxml").toURI().toURL();
+			URL url;
+			if(email.getText().equalsIgnoreCase("admin") && 
+					password.getText().equalsIgnoreCase("admin"))
+				url = new File("src/view/AdminStock.fxml").toURI().toURL();
+			else {
+				url = new File("src/view/ManagerStock.fxml").toURI().toURL();
+			}
 			Parent root;
 			root = FXMLLoader.load(url);
 			Scene scene = new Scene(root);
