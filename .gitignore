@@ -2,6 +2,11 @@
 bin/
 .classpath
 .project
+.idea/
+code.iml
+lib/
+out/
+*.xml
 src/META-INF
 inv.vbs
 Launcher.lnk
