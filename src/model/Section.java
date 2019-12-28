@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -13,11 +14,11 @@ public class Section {
 	
 	private String name;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Store store;
 	
 	@OneToMany(mappedBy = "section",
-			cascade = CascadeType.ALL)
+			cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Article> articles;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -26,6 +27,7 @@ public class Section {
 	public Section(String name) {
 		super();
 		this.name = name;
+		this.articles = new ArrayList<>();
 	}
 
 	public Section() {
@@ -53,7 +55,14 @@ public class Section {
 	}
 
 	public void setStore(Store store) {
+		if(this.store != null){
+			this.store.getSections().remove(this);
+		}
 		this.store = store;
+		if(store != null && !this.store.getSections().contains(this)){
+			this.store.getSections().add(this);
+		}
+
 	}
 
 	public List<Article> getArticles() {
@@ -70,6 +79,20 @@ public class Section {
 
 	public void setManager(Manager manager) {
 		this.manager = manager;
+	}
+
+	public void addArticle(Article article){
+		if(!this.articles.contains(article)){
+			this.articles.add(article);
+			article.setSection(this);
+		}
+	}
+
+	public void removeArticle(Article article){
+		if(this.articles.contains(article)){
+			this.articles.remove(article);
+			article.setSection(null);
+		}
 	}
 	
 	

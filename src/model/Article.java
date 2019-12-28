@@ -16,7 +16,7 @@ public class Article {
 	private int price;
 	private int qantity;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Section section;
 	
 	public Article(String name, String brand, int price, int qantity) {
@@ -76,7 +76,13 @@ public class Article {
 	}
 
 	public void setSection(Section section) {
+		if(this.section != null){
+			this.section.getArticles().remove(this);
+		}
 		this.section = section;
+		if(section != null && !this.section.getArticles().contains(this)){
+			this.section.getArticles().add(this);
+		}
 	}
 	
 	

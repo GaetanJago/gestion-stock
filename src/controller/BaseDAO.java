@@ -26,14 +26,14 @@ import java.util.List;
 
 }*/
 
-public class DAO {
-    private EntityManager em;
+public class BaseDAO {
+    protected EntityManager em;
 
-    public DAO(EntityManager em) {
+    public BaseDAO(EntityManager em) {
         this.em = em;
     }
 
-    public void create(Object object){
+    protected void create(Object object){
         em.getTransaction().begin();
         em.persist(object);
         em.getTransaction().commit();
@@ -45,7 +45,7 @@ public class DAO {
         em.getTransaction().commit();
     }
 
-    public void delete(Object object){
+    protected void delete(Object object){
         em.getTransaction().begin();
         em.remove(object);
         em.getTransaction().commit();

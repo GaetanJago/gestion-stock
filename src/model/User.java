@@ -15,7 +15,7 @@ public class User {
 	private String password;
 	
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Role role;
 
 	public User(String name, String firstName, String login, String password) {
@@ -75,6 +75,14 @@ public class User {
 	}
 
 	public void setRole(Role role) {
+		if(this.role != null){
+			this.role.getUsers().remove(this);
+		}
+
 		this.role = role;
+
+		if(role != null && !this.role.getUsers().contains(this)){
+			this.role.getUsers().add(this);
+		}
 	}	
 }

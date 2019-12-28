@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -14,12 +15,13 @@ public class Role {
 	private String name;
 	
 	@OneToMany(mappedBy = "role",
-			cascade = CascadeType.ALL)
-	private List<User> user;
+			cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<User> users;
 
 	public Role(String name) {
 		super();
 		this.name = name;
+		this.users = new ArrayList<>();
 	}
 	
 	public Role() {
@@ -42,11 +44,25 @@ public class Role {
 		this.name = name;
 	}
 
-	public List<User> getUser() {
-		return user;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(List<User> user) {
-		this.user = user;
+	public void setUsers(List<User> user) {
+		this.users = user;
+	}
+
+	public void addUser(User user){
+		if(!this.users.contains(user)){
+			this.users.add(user);
+			user.setRole(this);
+		}
+	}
+
+	public void removeUser(User user){
+		if(this.users.contains(user)){
+			this.users.remove(user);
+			user.setRole(null);
+		}
 	}
 }
