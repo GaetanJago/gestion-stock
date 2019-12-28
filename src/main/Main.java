@@ -5,19 +5,44 @@ import java.io.Console;
 import java.io.File;
 import java.io.PrintWriter;
 */
+//import controller.ArticleDAO;
+import controller.DAO;
 import javafx.application.Application;
+import model.Section;
+import model.Store;
 import view.Interface;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class Main {
 	
 	//private static String batName = "cher.bat";
+
 	
 	public static void main(String[] args) {
-		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("stock"); //name of persistence unit 
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("stock"); //name of persistence unit
 		EntityManager em = emf.createEntityManager();
-		
+
+        DAO dao = new DAO(em);
+
+        Store store = new Store("11 Launay Plumieux");
+        dao.create(store);
+
+
+        Section section = new Section("chaussure");
+        section.setStore(store);
+		dao.create(section);
+		dao.delete(store);
+		/*Article a1 = new Article("chaussure", "Nike", 1, 1);
+		a1.setSection(section);
+		dao.create(a1);
+		dao.delete(section);*/
+
+
 		em.close();
-		emf.close();*/
+		emf.close();
 		
 		Application.launch(Interface.class,args);
 	}
