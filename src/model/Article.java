@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "article")
+@Table(name = "Article")
 public class Article {
 	
 	@Id 
@@ -14,17 +14,17 @@ public class Article {
 	private String name;
 	private String brand;
 	private int price;
-	private int qantity;
+	private int quantity;
 	
 	@ManyToOne
 	private Section section;
 	
-	public Article(String name, String brand, int price, int qantity) {
+	public Article(String name, String brand, int price, int quantity) {
 		super();
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
-		this.qantity = qantity;
+		this.quantity = quantity;
 	}
 
 	public Article() {
@@ -63,12 +63,12 @@ public class Article {
 		this.price = price;
 	}
 
-	public int getQantity() {
-		return qantity;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQantity(int qantity) {
-		this.qantity = qantity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public Section getSection() {

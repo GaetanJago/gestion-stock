@@ -7,22 +7,39 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * DAO class for the entity Manager
+ */
 public class ManagerDAO extends BaseDAO<Manager> {
     public ManagerDAO(EntityManager em) {
         super(em);
     }
 
+    /**
+     * get all managers inserted in the database
+     * @return a list of all managers
+     */
     @Override
     public List<Manager> getAll() {
         Query query = super.em.createQuery("FROM Manager ");
         return query.getResultList();
     }
 
+    /**
+     * find a manager in the database from an id
+     * @param id of the manager searched
+     * @return the manager found or an optional null if nothing has been found
+     */
     @Override
     public Optional<Manager> findById(int id) {
         return Optional.ofNullable(em.find(Manager.class, id));
     }
 
+    /**
+     * insert a manager in the database and update its section manager
+     * @param manager to insert
+     */
     public void create(Manager manager){
         if(manager.getSection() != null){
             manager.getSection().setManager(manager);
@@ -30,6 +47,10 @@ public class ManagerDAO extends BaseDAO<Manager> {
         super.create(manager);
     }
 
+    /**
+     * delete a manager in the database and update its section manager
+     * @param manager to delete
+     */
     public void delete(Manager manager){
         if(manager.getSection() != null){
             manager.getSection().setManager(null);
