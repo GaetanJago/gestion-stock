@@ -52,9 +52,11 @@ public abstract class BaseDAO<T> {
     }
 
     protected void delete(T object){
-        em.getTransaction().begin();
-        em.remove(object);
-        em.getTransaction().commit();
-        em.detach(object);
+        if(em.contains(object)){
+            em.getTransaction().begin();
+            em.remove(object);
+            em.getTransaction().commit();
+            em.detach(object);
+        }
     }
 }
