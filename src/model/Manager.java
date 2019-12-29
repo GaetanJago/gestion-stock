@@ -6,8 +6,7 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name = "id")
 public class Manager extends User{
 	
-	@OneToOne(mappedBy = "manager",
-			cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "manager")
 	private Section section;
 
 	public Manager() {

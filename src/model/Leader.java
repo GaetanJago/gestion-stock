@@ -5,8 +5,7 @@ import javax.persistence.*;
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class Leader extends User{
-	@OneToOne(mappedBy = "leader",
-			cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "leader")
 	private Store store;
 
 	public Leader() {

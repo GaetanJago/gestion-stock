@@ -26,12 +26,14 @@ import java.util.List;
 
 }*/
 
-public class BaseDAO {
+public abstract class BaseDAO<T> {
     protected EntityManager em;
 
     public BaseDAO(EntityManager em) {
         this.em = em;
     }
+
+
 
     protected void create(Object object){
         em.getTransaction().begin();

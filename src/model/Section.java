@@ -21,7 +21,7 @@ public class Section {
 			cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Article> articles;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Manager manager;
 
 	public Section(String name) {
@@ -78,6 +78,9 @@ public class Section {
 	}
 
 	public void setManager(Manager manager) {
+		if(this.manager != null){
+			this.manager.setSection(null);
+		}
 		this.manager = manager;
 	}
 

@@ -10,18 +10,20 @@ public class SectionDAO extends BaseDAO {
     }
 
     public void create(Section section) {
-        super.create(section);
         if(section.getStore() != null){
             section.getStore().addSection(section);
         }
 
+        super.create(section);
     }
 
     public void delete(Section section){
         if(section.getStore() != null){
             section.getStore().removeSection(section);
         }
-
+        if(section.getManager() != null){
+            section.getManager().setSection(null);
+        }
         super.delete(section);
     }
 }

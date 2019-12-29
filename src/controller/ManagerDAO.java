@@ -10,10 +10,16 @@ public class ManagerDAO extends BaseDAO {
     }
 
     public void create(Manager manager){
+        if(manager.getSection() != null){
+            manager.getSection().setManager(manager);
+        }
         super.create(manager);
     }
 
     public void delete(Manager manager){
+        if(manager.getSection() != null){
+            manager.getSection().setManager(null);
+        }
         super.delete(manager);
     }
 }

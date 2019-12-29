@@ -7,10 +7,7 @@ import java.io.PrintWriter;
 */
 import controller.*;
 import javafx.application.Application;
-import model.Article;
-import model.Leader;
-import model.Section;
-import model.Store;
+import model.*;
 import view.Interface;
 
 import javax.persistence.EntityManager;
@@ -45,11 +42,18 @@ public class Main {
 		StoreDAO storeDAO = new StoreDAO(em);
 		SectionDAO sectionDAO = new SectionDAO(em);
 		LeaderDAO leaderDAO = new LeaderDAO(em);
+		ManagerDAO managerDAO = new ManagerDAO(em);
 
 		Store store = new Store("64 avenue Jean Portalis Tours");
 		Section section = new Section("Chaussure");
 		Article article = new Article("Chaussure de foot", "Nike", 50, 1);
 		Leader leader = new Leader();
+		leader.setStore(store);
+		Manager manager = new Manager();
+
+		manager.setSection(section);
+		Manager manager2 = new Manager();
+		manager2.setSection(section);
 
 		storeDAO.create(store);
 		//section.setStore(store);
@@ -60,18 +64,21 @@ public class Main {
 		articleDAO.create(article);
 		article.setSection(section);
 		articleDAO.save();
-		sectionDAO.delete(section);
-		store.setLeader(leader);
-		storeDAO.save();
+		//sectionDAO.delete(section);
+		//store.setLeader(leader);
+		//storeDAO.save();
+		leaderDAO.create(leader);
+		leaderDAO.delete(leader);
+		managerDAO.create(manager);
 
-		//storeDAO.delete(store);
+		managerDAO.create(manager2);
 
+		//sectionDAO.delete(section);
 
-		/*Article a1 = new Article("chaussure", "Nike", 1, 1);
-		a1.setSection(section);
-		dao.create(a1);
-		dao.delete(section);*/
-
+		//managerDAO.delete(manager);
+		//storeDAO.save();
+		//leaderDAO.delete(leader);
+		storeDAO.delete(store);
 
 		em.close();
 		emf.close();
