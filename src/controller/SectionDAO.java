@@ -3,10 +3,24 @@ package controller;
 import model.Section;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
+import java.util.Optional;
 
-public class SectionDAO extends BaseDAO {
+public class SectionDAO extends BaseDAO<Section> {
     public SectionDAO(EntityManager em) {
         super(em);
+    }
+
+    @Override
+    public List<Section> getAll() {
+        Query query = super.em.createQuery("FROM Section");
+        return query.getResultList();
+    }
+
+    @Override
+    public Optional<Section> findById(int id) {
+        return Optional.ofNullable(em.find(Section.class, id));
     }
 
     public void create(Section section) {

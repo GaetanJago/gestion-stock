@@ -47,6 +47,7 @@ public class Main {
 		Store store = new Store("64 avenue Jean Portalis Tours");
 		Section section = new Section("Chaussure");
 		Article article = new Article("Chaussure de foot", "Nike", 50, 1);
+		Article article2 = new Article("Raquette de tennis", "Babolat", 40, 5);
 		Leader leader = new Leader();
 		leader.setStore(store);
 		Manager manager = new Manager();
@@ -72,13 +73,13 @@ public class Main {
 		managerDAO.create(manager);
 
 		managerDAO.create(manager2);
-
+		articleDAO.create(article2);
 		//sectionDAO.delete(section);
 
 		//managerDAO.delete(manager);
 		//storeDAO.save();
 		//leaderDAO.delete(leader);
-		storeDAO.delete(store);
+		//storeDAO.delete(store);
 
 		em.close();
 		emf.close();

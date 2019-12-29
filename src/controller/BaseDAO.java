@@ -2,7 +2,9 @@ package controller;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 
 /*public abstract class BaseDAO<T> {
 
@@ -33,9 +35,11 @@ public abstract class BaseDAO<T> {
         this.em = em;
     }
 
+    abstract public List<T> getAll();
 
+    abstract public Optional<T> findById(int id);
 
-    protected void create(Object object){
+    protected void create(T object){
         em.getTransaction().begin();
         em.persist(object);
         em.getTransaction().commit();
@@ -47,7 +51,7 @@ public abstract class BaseDAO<T> {
         em.getTransaction().commit();
     }
 
-    protected void delete(Object object){
+    protected void delete(T object){
         em.getTransaction().begin();
         em.remove(object);
         em.getTransaction().commit();
