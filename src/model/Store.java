@@ -11,7 +11,7 @@ public class Store {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	private String adress;
+	private String address;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "store", orphanRemoval = true)
 	private List<Section> sections;	
@@ -19,9 +19,9 @@ public class Store {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Leader leader;
 
-	public Store(String adress) {
+	public Store(String address) {
 		super();
-		this.adress = adress;
+		this.address = address;
 		this.sections = new ArrayList<>();
 	}
 
@@ -37,12 +37,12 @@ public class Store {
 		this.id = id;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String adress) {
+		this.address = adress;
 	}
 
 	public List<Section> getSections() {

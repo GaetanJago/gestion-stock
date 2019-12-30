@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import controller.*;
 import javafx.application.Application;
 import model.*;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import view.Interface;
 
 import javax.persistence.EntityManager;
@@ -18,8 +20,11 @@ public class Main {
 	
 	//private static String batName = "cher.bat";
 
-	
+	private final static Logger logger = Logger.getLogger(Main.class);
+
 	public static void main(String[] args) {
+		PropertyConfigurator.configure("log4j.properties");
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("stock"); //name of persistence unit
 		EntityManager em = emf.createEntityManager();
 
@@ -50,10 +55,10 @@ public class Main {
 		Article article2 = new Article("Raquette de tennis", "Babolat", 40, 5);
 		Leader leader = new Leader();
 		leader.setStore(store);
-		Manager manager = new Manager();
+		Manager manager = new Manager("Martin", "Pierre", "pmartin", "azeqsd");
 
 		manager.setSection(section);
-		Manager manager2 = new Manager();
+		Manager manager2 = new Manager("Marsault", "Bastien", "bmarsault", "emufac");
 		manager2.setSection(section);
 
 		storeDAO.create(store);

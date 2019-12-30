@@ -1,6 +1,7 @@
 package controller;
 
 import model.User;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,6 +13,9 @@ import java.util.Optional;
  * DAO class for the entity User
  */
 public class UserDAO extends BaseDAO<User> {
+
+    private final static Logger logger = Logger.getLogger(UserDAO.class);
+
     public UserDAO(EntityManager em) {
         super(em);
     }
@@ -41,6 +45,7 @@ public class UserDAO extends BaseDAO<User> {
      * @param user to insert
      */
     public void create(User user) {
+        logger.info("Creation de l'utilisateur " + user.getFirstName() + user.getLastName());
         super.create(user);
     }
 
@@ -49,6 +54,7 @@ public class UserDAO extends BaseDAO<User> {
      * @param user to delete
      */
     public void delete(User user){
+        logger.info("Suppression de l'utilisateur " + user.getFirstName() + user.getLastName());
         super.delete(user);
     }
 }

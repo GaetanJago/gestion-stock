@@ -1,6 +1,7 @@
 package controller;
 
 import model.Store;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,6 +13,9 @@ import java.util.Optional;
  * DAO class for the entity Store
  */
 public class StoreDAO extends BaseDAO<Store> {
+
+    private final static Logger logger = Logger.getLogger(StoreDAO.class);
+
     public StoreDAO(EntityManager em) {
         super(em);
     }
@@ -41,6 +45,7 @@ public class StoreDAO extends BaseDAO<Store> {
      * @param store to insert
      */
     public void create(Store store) {
+        logger.info("Creation du magasin à l'adresse " + store.getAddress());
         super.create(store);
     }
 
@@ -49,6 +54,7 @@ public class StoreDAO extends BaseDAO<Store> {
      * @param store to delete
      */
     public void delete(Store store){
+        logger.info("Suppression du magasin à l'adresse " + store.getAddress());
         super.delete(store);
     }
 }

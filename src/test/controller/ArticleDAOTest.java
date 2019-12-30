@@ -5,6 +5,7 @@ import controller.SectionDAO;
 import model.Article;
 import model.Section;
 import org.junit.*;
+import org.junit.runner.RunWith;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

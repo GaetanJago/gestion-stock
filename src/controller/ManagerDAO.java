@@ -1,6 +1,7 @@
 package controller;
 
 import model.Manager;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,6 +13,9 @@ import java.util.Optional;
  * DAO class for the entity Manager
  */
 public class ManagerDAO extends BaseDAO<Manager> {
+
+    private final static Logger logger = Logger.getLogger(ManagerDAO.class);
+
     public ManagerDAO(EntityManager em) {
         super(em);
     }
@@ -41,6 +45,7 @@ public class ManagerDAO extends BaseDAO<Manager> {
      * @param manager to insert
      */
     public void create(Manager manager){
+        logger.info("Creation du manager " + manager.getFirstName() + manager.getLastName());
         if(manager.getSection() != null){
             manager.getSection().setManager(manager);
         }
@@ -52,6 +57,7 @@ public class ManagerDAO extends BaseDAO<Manager> {
      * @param manager to delete
      */
     public void delete(Manager manager){
+        logger.info("Suppression du manager " + manager.getFirstName() + manager.getLastName());
         if(manager.getSection() != null){
             manager.getSection().setManager(null);
         }

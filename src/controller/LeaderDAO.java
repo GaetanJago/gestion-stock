@@ -1,6 +1,7 @@
 package controller;
 
 import model.Leader;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,6 +13,9 @@ import java.util.Optional;
  * DAO class for the entity Leader
  */
 public class LeaderDAO extends BaseDAO<Leader> {
+
+    private final static Logger logger = Logger.getLogger(LeaderDAO.class);
+
     public LeaderDAO(EntityManager em) {
         super(em);
     }
@@ -42,6 +46,7 @@ public class LeaderDAO extends BaseDAO<Leader> {
      * @param leader to insert
      */
     public void create(Leader leader){
+        logger.info("Creation du leader " + leader.getFirstName() + leader.getLastName());
         if(leader.getStore() != null){
             leader.getStore().setLeader(leader);
         }
@@ -53,6 +58,7 @@ public class LeaderDAO extends BaseDAO<Leader> {
      * @param leader to delete
      */
     public void delete(Leader leader){
+        logger.info("Suppression du leader " + leader.getFirstName() + leader.getLastName());
         if(leader.getStore() != null){
             leader.getStore().setLeader(null);
         }

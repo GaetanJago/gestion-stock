@@ -1,6 +1,7 @@
 package controller;
 
 import model.Role;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,6 +13,8 @@ import java.util.Optional;
  * DAO class for the entity Role
  */
 public class RoleDAO extends BaseDAO<Role> {
+
+    private final static Logger logger = Logger.getLogger(RoleDAO.class);
 
     public RoleDAO(EntityManager em) {
         super(em);
@@ -42,6 +45,7 @@ public class RoleDAO extends BaseDAO<Role> {
      * @param role to insert
      */
     public void create(Role role) {
+        logger.info("Creation du role " + role.getName());
         super.create(role);
     }
 
@@ -50,6 +54,7 @@ public class RoleDAO extends BaseDAO<Role> {
      * @param role to delete
      */
     public void delete(Role role){
+        logger.info("Suppression du role " + role.getName());
         super.delete(role);
     }
 }

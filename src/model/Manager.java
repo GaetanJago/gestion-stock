@@ -13,6 +13,10 @@ public class Manager extends User{
 		super();
 	}
 
+	public Manager(String name, String firstName, String login, String password) {
+		super(name, firstName, login, password);
+	}
+
 	public Section getSection() {
 		return section;
 	}

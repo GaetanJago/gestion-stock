@@ -12,6 +12,10 @@ public class Leader extends User{
 		super();
 	}
 
+	public Leader(String lastName, String firstName, String login, String password) {
+		super(lastName, firstName, login, password);
+	}
+
 	public Store getStore() {
 		return store;
 	}

@@ -1,6 +1,7 @@
 package controller;
 
 import model.Section;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,6 +13,9 @@ import java.util.Optional;
  * DAO class for the entity Section
  */
 public class SectionDAO extends BaseDAO<Section> {
+
+    private final static Logger logger = Logger.getLogger(SectionDAO.class);
+
     public SectionDAO(EntityManager em) {
         super(em);
     }
@@ -41,6 +45,7 @@ public class SectionDAO extends BaseDAO<Section> {
      * @param section to insert
      */
     public void create(Section section) {
+        logger.info("Creation de la section " + section.getName());
         if(section.getStore() != null){
             section.getStore().addSection(section);
         }
@@ -54,6 +59,7 @@ public class SectionDAO extends BaseDAO<Section> {
      * @param section to delete
      */
     public void delete(Section section){
+        logger.info("Suppression de la section " + section.getName());
         if(section.getStore() != null){
             section.getStore().removeSection(section);
         }

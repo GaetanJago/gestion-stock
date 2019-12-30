@@ -9,7 +9,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	private String name;
+	private String lastName;
 	private String firstName;
 	private String login;
 	private String password;
@@ -18,9 +18,9 @@ public class User {
 	@ManyToOne
 	private Role role;
 
-	public User(String name, String firstName, String login, String password) {
+	public User(String lastName, String firstName, String login, String password) {
 		super();
-		this.name = name;
+		this.lastName = lastName;
 		this.firstName = firstName;
 		this.login = login;
 		this.password = password;
@@ -38,12 +38,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLastName(String name) {
+		this.lastName = name;
 	}
 
 	public String getFirstName() {
