@@ -6,9 +6,11 @@ bin/
 code.iml
 lib/
 out/
-*.xml
 src/META-INF
 inv.vbs
 Launcher.lnk
 launcher.bat
 stock.jar
+
+*.xml
+*.log

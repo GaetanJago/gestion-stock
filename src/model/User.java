@@ -84,5 +84,9 @@ public class User {
 		if(role != null && !this.role.getUsers().contains(this)){
 			this.role.getUsers().add(this);
 		}
-	}	
+	}
+
+	public String getFullName(){
+		return this.firstName + " " + this.lastName;
+	}
 }

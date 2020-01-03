@@ -1,10 +1,13 @@
 package controller;
 
 import model.Article;
+import model.Section;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,4 +71,12 @@ public class ArticleDAO extends BaseDAO<Article> {
         super.delete(article);
     }
 
+
+    public List<Article> findBySection(Section section){
+        //CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        //CriteriaQuery<Article> query = cb.createQuery(Article.class);
+        Query query = em.createQuery("SELECT article FROM Article article WHERE section_id = :idSection").setParameter("idSection", section.getId());
+        return (List<Article>) query.getResultList();
+    }
 }

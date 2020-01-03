@@ -15,6 +15,7 @@ import view.Interface;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class Main {
 	
@@ -61,6 +62,8 @@ public class Main {
 		Manager manager2 = new Manager("Marsault", "Bastien", "bmarsault", "emufac");
 		manager2.setSection(section);
 
+		Article article3 = new Article("Chaussure de marche", "Asics", 60, 2);
+
 		storeDAO.create(store);
 		//section.setStore(store);
 		//sectionDAO.create(section);
@@ -79,6 +82,19 @@ public class Main {
 
 		managerDAO.create(manager2);
 		articleDAO.create(article2);
+
+		article3.setSection(section);
+		articleDAO.create(article3);
+
+		List<Article> listArticleSection = articleDAO.findBySection(section);
+
+		for (Article art :
+			 listArticleSection) {
+			logger.info(art.getName());
+		}
+
+
+
 		//sectionDAO.delete(section);
 
 		//managerDAO.delete(manager);

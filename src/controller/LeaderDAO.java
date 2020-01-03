@@ -46,7 +46,7 @@ public class LeaderDAO extends BaseDAO<Leader> {
      * @param leader to insert
      */
     public void create(Leader leader){
-        logger.info("Creation du leader " + leader.getFirstName() + leader.getLastName());
+        logger.info("Creation du leader " + leader.getFullName());
         if(leader.getStore() != null){
             leader.getStore().setLeader(leader);
         }
@@ -58,7 +58,7 @@ public class LeaderDAO extends BaseDAO<Leader> {
      * @param leader to delete
      */
     public void delete(Leader leader){
-        logger.info("Suppression du leader " + leader.getFirstName() + leader.getLastName());
+        logger.info("Suppression du leader " + leader.getFullName());
         if(leader.getStore() != null){
             leader.getStore().setLeader(null);
         }

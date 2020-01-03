@@ -45,7 +45,7 @@ public class UserDAO extends BaseDAO<User> {
      * @param user to insert
      */
     public void create(User user) {
-        logger.info("Creation de l'utilisateur " + user.getFirstName() + user.getLastName());
+        logger.info("Creation de l'utilisateur " + user.getFullName());
         super.create(user);
     }
 
@@ -54,7 +54,7 @@ public class UserDAO extends BaseDAO<User> {
      * @param user to delete
      */
     public void delete(User user){
-        logger.info("Suppression de l'utilisateur " + user.getFirstName() + user.getLastName());
+        logger.info("Suppression de l'utilisateur " + user.getFullName());
         super.delete(user);
     }
 }

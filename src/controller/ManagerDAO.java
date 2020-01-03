@@ -45,7 +45,7 @@ public class ManagerDAO extends BaseDAO<Manager> {
      * @param manager to insert
      */
     public void create(Manager manager){
-        logger.info("Creation du manager " + manager.getFirstName() + manager.getLastName());
+        logger.info("Creation du manager " + manager.getFullName());
         if(manager.getSection() != null){
             manager.getSection().setManager(manager);
         }
@@ -57,7 +57,7 @@ public class ManagerDAO extends BaseDAO<Manager> {
      * @param manager to delete
      */
     public void delete(Manager manager){
-        logger.info("Suppression du manager " + manager.getFirstName() + manager.getLastName());
+        logger.info("Suppression du manager " + manager.getFullName());
         if(manager.getSection() != null){
             manager.getSection().setManager(null);
         }
