@@ -53,7 +53,6 @@ public class ArticleDAO extends BaseDAO<Article> {
         logger.info("Creation de l'article " + article.getName());
         super.create(article);
         if(article.getSection() != null){
-            //logger.info("Ajout dans la section " + article.getSection().getName());
             article.getSection().addArticle(article);
         }
 
@@ -73,9 +72,6 @@ public class ArticleDAO extends BaseDAO<Article> {
 
 
     public List<Article> findBySection(Section section){
-        //CriteriaBuilder cb = em.getCriteriaBuilder();
-
-        //CriteriaQuery<Article> query = cb.createQuery(Article.class);
         Query query = em.createQuery("SELECT article FROM Article article WHERE section_id = :idSection").setParameter("idSection", section.getId());
         return (List<Article>) query.getResultList();
     }

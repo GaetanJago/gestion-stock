@@ -46,6 +46,9 @@ public class UserDAO extends BaseDAO<User> {
      */
     public void create(User user) {
         logger.info("Creation de l'utilisateur " + user.getFullName());
+        if(user.getRole() != null){
+            user.getRole().addUser(user);
+        }
         super.create(user);
     }
 
@@ -55,6 +58,9 @@ public class UserDAO extends BaseDAO<User> {
      */
     public void delete(User user){
         logger.info("Suppression de l'utilisateur " + user.getFullName());
+        if(user.getRole() != null){
+            user.getRole().removeUser(user);
+        }
         super.delete(user);
     }
 }

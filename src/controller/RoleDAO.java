@@ -1,6 +1,7 @@
 package controller;
 
 import model.Role;
+import model.User;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;

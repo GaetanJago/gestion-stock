@@ -13,8 +13,8 @@ public class Manager extends User{
 		super();
 	}
 
-	public Manager(String name, String firstName, String login, String password) {
-		super(name, firstName, login, password);
+	public Manager(String lastName, String firstName, String login, String password) {
+		super(lastName, firstName, login, password);
 	}
 
 	public Section getSection() {

@@ -49,6 +49,9 @@ public class SectionDAO extends BaseDAO<Section> {
         if(section.getStore() != null){
             section.getStore().addSection(section);
         }
+        if(section.getManager() != null){
+            section.getManager().setSection(section);
+        }
 
         super.create(section);
     }

@@ -76,6 +76,8 @@ public class ArticleDAOTest {
         Article articleFound = articleDAO.findById(article.getId()).get();
 
         Assert.assertEquals(article, articleFound);
+        //Check if the article is in the section article list
+        Assert.assertTrue(sectionDAO.findById(section.getId()).get().getArticles().contains(article));
     }
 
     @Test
@@ -101,23 +103,33 @@ public class ArticleDAOTest {
         //Get list of all articles in the database
         List<Article> articleList = articleDAO.getAll();
 
-        //Check that there is one more article in the list than before
+        //Check that there is one more article in the list than before insert
         Assert.assertEquals(nbArticlesBeforeInsert+1, articleList.size());
         //Check that the last article is the one which we just added
         Assert.assertEquals(article, articleList.get(articleList.size()-1));
     }
 
-    @Test
+    /*@Test
     public void testFindById(){
         Article article = new Article("Balle de tennis", "Artengo", 2, 40);
+
+        Section section = new Section("Balle");
+        article.setSection(section);
+        sectionDAO.create(section);
+
         articleDAO.create(article);
 
         Assert.assertEquals(article, articleDAO.findById(article.getId()).get());
-    }
+    }*/
 
     @Test
     public void testDelete(){
         Article article = new Article("Short", "Adidas", 30, 3);
+
+        Section section = new Section("Short");
+        sectionDAO.create(section);
+
+        article.setSection(section);
         articleDAO.create(article);
 
         //Count how many articles are in the database before delete
@@ -126,6 +138,8 @@ public class ArticleDAOTest {
         articleDAO.delete(article);
 
         Assert.assertEquals(nbArticlesBeforeDelete-1, articleDAO.getAll().size());
+        Assert.assertFalse(articleDAO.getAll().contains(article));
+        Assert.assertFalse(sectionDAO.findById(section.getId()).get().getArticles().contains(article));
     }
 
     @Test
