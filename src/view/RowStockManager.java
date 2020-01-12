@@ -32,7 +32,7 @@ public class RowStockManager {
 			factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(-(stock),maxAdd,0);
 			this.modify.setValueFactory(factory);
 			this.modify.setEditable(true);
-			this.modify.setPrefWidth(Control.USE_COMPUTED_SIZE);
+			this.modify.setPrefWidth(Double.MAX_VALUE);
 		}
 		
 	}

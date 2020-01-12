@@ -32,10 +32,13 @@ public class RowStockAdmin {
 		this.modify = modify;
 		this.art = a;
 		
+		this.section.setPrefWidth(Double.MAX_VALUE);
+		this.modify.setPrefWidth(Double.MAX_VALUE);
+		
 		factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(-(stock),maxAdd,0);
 		this.modify.setValueFactory(factory);
 		this.modify.setEditable(true);
-		this.modify.setPrefWidth(Control.USE_COMPUTED_SIZE);
+		
 	}
 
 	

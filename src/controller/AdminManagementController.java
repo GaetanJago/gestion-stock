@@ -256,5 +256,10 @@ public class AdminManagementController implements Initializable{
 		}
 		displayUsers();
 	}
+	
+	@FXML
+	public void cancelAction(ActionEvent event) {
+		displayUsers();
+	}
 }
 

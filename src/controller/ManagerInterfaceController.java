@@ -38,7 +38,7 @@ import view.RowStockManager;
  * Class to control manager page
  */
 public class ManagerInterfaceController implements Initializable {
-
+/*
 	//You may need this also if you're getting null
 	@FXML private void initialize() {
 
@@ -48,7 +48,7 @@ public class ManagerInterfaceController implements Initializable {
 
 		});
 
-	}
+	}*/
 
 	@FXML
 	private Label login;
@@ -192,5 +192,10 @@ public class ManagerInterfaceController implements Initializable {
 		changeFilter(null);
 	}
 
+	
+	@FXML
+	public void cancelAction(ActionEvent event) {
+		changeFilter(null);
+	}
 
 }

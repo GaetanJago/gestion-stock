@@ -20,7 +20,7 @@
          <bottom>
             <FlowPane alignment="CENTER_RIGHT" hgap="20.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Annuler" />
+                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancelAction" text="Annuler" />
                   <Button fx:id="save" mnemonicParsing="false" onAction="#saveModification" text="Sauvegarder">
                      <font>
                         <Font size="14.0" />

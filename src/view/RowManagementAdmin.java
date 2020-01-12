@@ -15,14 +15,15 @@ public class RowManagementAdmin {
 	private ComboBox<Section> section;
 	private ButtonIdentifiable action;
 		
-	public RowManagementAdmin(User userName, String role, ComboBox<Section> section, ButtonIdentifiable action) {
+	public RowManagementAdmin(User userName, String role, ComboBox<Section> section, ButtonIdentifiable action	) {
 		super();
 		this.userName = userName;
 		this.role = role;
 		this.section = section;
 		this.action = action;
-	
 		
+		if(this.section != null)
+			this.section.setPrefWidth(Double.MAX_VALUE);
 	}
 	
 	public User getUserName() {

@@ -78,6 +78,7 @@ public class AdminStockController implements Initializable{
 		table.setItems(listStockRowAdmin);
 		filter.setItems(listFilter);
 		listFilter.add("Tous");
+		
 
 		//Add all section available
 		SectionDAO sD = new SectionDAO(Main.em);
@@ -204,6 +205,11 @@ public class AdminStockController implements Initializable{
 			ad.save();
 			sd.save();
 		}
+		dispStock(filter.getValue());
+	}
+	
+	@FXML
+	public void cancelAction(ActionEvent event) {
 		dispStock(filter.getValue());
 	}
 }

@@ -4,8 +4,7 @@
 #top{
 	-fx-background-color: linear-gradient(rgba(12, 88, 219, 255),  rgba(78, 144, 185, 255));
 }
-/*
-.table-cell {
+
+#product,#section,#stock,#modify {
 	 -fx-alignment: CENTER;
 }
-*/
