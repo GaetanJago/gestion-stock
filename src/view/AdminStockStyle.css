@@ -7,3 +7,7 @@
 #actionCol,#roleCol,#sectionCol{
 	-fx-alignment: CENTER;
 }
+
+#section,#modify{
+	-fx-alignment: CENTER;
+}

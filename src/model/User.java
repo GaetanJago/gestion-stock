@@ -89,4 +89,10 @@ public class User {
 	public String getFullName(){
 		return this.firstName + " " + this.lastName;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return getLogin();
+	}
 }

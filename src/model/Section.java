@@ -18,7 +18,7 @@ public class Section {
 	private Store store;
 	
 	@OneToMany(mappedBy = "section",
-			cascade = CascadeType.ALL, orphanRemoval = true)
+			cascade = CascadeType.MERGE, orphanRemoval = true)
 	private List<Article> articles;
 	
 	@OneToOne
@@ -96,6 +96,11 @@ public class Section {
 			this.articles.remove(article);
 			article.setSection(null);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return getName();
 	}
 	
 	
