@@ -17,6 +17,7 @@ public class RoleDAO extends BaseDAO<Role> {
 
     private final static Logger logger = Logger.getLogger(RoleDAO.class);
 
+
     public RoleDAO(EntityManager em) {
         super(em);
     }
@@ -37,8 +38,14 @@ public class RoleDAO extends BaseDAO<Role> {
      * @return the role found or an optional null if nothing has been found
      */
     @Override
-    public Optional<Role> findById(int id) {
-        return Optional.ofNullable(em.find(Role.class, id));
+    public Role findById(int id) {
+        Optional<Role> roleFound = Optional.ofNullable(em.find(Role.class, id));
+
+        if(roleFound.isPresent()){
+            return roleFound.get();
+        }
+        return null;
+
     }
 
     /**

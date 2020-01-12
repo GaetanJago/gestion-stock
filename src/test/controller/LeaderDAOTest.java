@@ -58,10 +58,10 @@ public class LeaderDAOTest {
         leader.setStore(store);
         leaderDAO.create(leader);
 
-        Leader leaderFound = leaderDAO.findById(leader.getId()).get();
+        Leader leaderFound = leaderDAO.findById(leader.getId());
 
         Assert.assertEquals(leader, leaderFound);
-        Assert.assertEquals(leader, storeDAO.findById(store.getId()).get().getLeader());
+        Assert.assertEquals(leader, storeDAO.findById(store.getId()).getLeader());
     }
 
     @Test
@@ -122,7 +122,7 @@ public class LeaderDAOTest {
 
         Assert.assertEquals(nbLeadersBeforeDelete-1, leaderDAO.getAll().size());
         Assert.assertFalse(leaderDAO.getAll().contains(leader));
-        Assert.assertNull(storeDAO.findById(store.getId()).get().getLeader());
+        Assert.assertNull(storeDAO.findById(store.getId()).getLeader());
 
     }
 

@@ -16,6 +16,7 @@ public class StoreDAO extends BaseDAO<Store> {
 
     private final static Logger logger = Logger.getLogger(StoreDAO.class);
 
+
     public StoreDAO(EntityManager em) {
         super(em);
     }
@@ -36,8 +37,13 @@ public class StoreDAO extends BaseDAO<Store> {
      * @return the store found or an optional null if nothing has been found
      */
     @Override
-    public Optional<Store> findById(int id) {
-        return Optional.ofNullable(em.find(Store.class, id));
+    public Store findById(int id) {
+        Optional<Store> storeFound = Optional.ofNullable(em.find(Store.class, id));
+
+        if(storeFound.isPresent()){
+            return storeFound.get();
+        }
+        return null;
     }
 
     /**

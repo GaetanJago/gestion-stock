@@ -54,7 +54,7 @@ public class StoreDAOTest {
 
         storeDAO.create(store);
 
-        Store storeFound = storeDAO.findById(store.getId()).get();
+        Store storeFound = storeDAO.findById(store.getId());
 
         Assert.assertEquals(store, storeFound);
     }

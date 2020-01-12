@@ -20,6 +20,7 @@ public class ArticleDAO extends BaseDAO<Article> {
 
     private final static Logger logger = Logger.getLogger(ArticleDAO.class);
 
+
     public ArticleDAO(EntityManager em){
         super(em);
     }
@@ -31,7 +32,7 @@ public class ArticleDAO extends BaseDAO<Article> {
     @Override
     public List<Article> getAll() {
         Query query = super.em.createQuery("FROM Article");
-        return query.getResultList();
+        return (List<Article>) query.getResultList();
     }
 
     /**
@@ -40,8 +41,14 @@ public class ArticleDAO extends BaseDAO<Article> {
      * @return the article found or an optional null if nothing has been found
      */
     @Override
-    public Optional<Article> findById(int id) {
-        return Optional.ofNullable(em.find(Article.class, id));
+    public Article findById(int id) {
+
+        Optional<Article> articleFound = Optional.ofNullable(em.find(Article.class, id));
+
+        if(articleFound.isPresent()){
+            return articleFound.get();
+        }
+        return null;
     }
 
 

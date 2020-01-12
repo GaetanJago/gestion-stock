@@ -36,8 +36,13 @@ public class SectionDAO extends BaseDAO<Section> {
      * @return the section found or an optional null if nothing has been found
      */
     @Override
-    public Optional<Section> findById(int id) {
-        return Optional.ofNullable(em.find(Section.class, id));
+    public Section findById(int id) {
+        Optional<Section> sectionFound = Optional.ofNullable(em.find(Section.class, id));
+
+        if(sectionFound.isPresent()){
+            return sectionFound.get();
+        }
+        return null;
     }
 
     /**

@@ -36,8 +36,13 @@ public class ManagerDAO extends BaseDAO<Manager> {
      * @return the manager found or an optional null if nothing has been found
      */
     @Override
-    public Optional<Manager> findById(int id) {
-        return Optional.ofNullable(em.find(Manager.class, id));
+    public Manager findById(int id) {
+        Optional<Manager> managerFound = Optional.ofNullable(em.find(Manager.class, id));
+
+        if(managerFound.isPresent()){
+            return managerFound.get();
+        }
+        return null;
     }
 
     /**
@@ -46,10 +51,15 @@ public class ManagerDAO extends BaseDAO<Manager> {
      */
     public void create(Manager manager){
         logger.info("Creation du manager " + manager.getFullName());
-        if(manager.getSection() != null){
-            manager.getSection().setManager(manager);
+        if(loginIsAvailable(manager.getLogin())){
+            if(manager.getSection() != null){
+                manager.getSection().setManager(manager);
+            }
+            super.create(manager);
+        } else {
+            logger.info("Le login a deja ete attribue");
         }
-        super.create(manager);
+
     }
 
     /**
@@ -62,5 +72,10 @@ public class ManagerDAO extends BaseDAO<Manager> {
             manager.getSection().setManager(null);
         }
         super.delete(manager);
+    }
+
+    public boolean loginIsAvailable(String login){
+        Query query = em.createQuery("SELECT login FROM User WHERE login = :login").setParameter("login", login);
+        return query.getResultList().isEmpty();
     }
 }

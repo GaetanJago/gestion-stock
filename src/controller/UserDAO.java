@@ -1,5 +1,7 @@
 package controller;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import model.Article;
 import model.User;
 import org.apache.log4j.Logger;
 
@@ -36,8 +38,13 @@ public class UserDAO extends BaseDAO<User> {
      * @return the user found or an optional null if nothing has been found
      */
     @Override
-    public Optional<User> findById(int id) {
-        return Optional.ofNullable(em.find(User.class, id));
+    public User findById(int id) {
+
+        Optional<User> userFound = Optional.ofNullable(em.find(User.class, id));
+        if(userFound.isPresent()){
+            return userFound.get();
+        }
+        return null;
     }
 
     /**
@@ -46,10 +53,16 @@ public class UserDAO extends BaseDAO<User> {
      */
     public void create(User user) {
         logger.info("Creation de l'utilisateur " + user.getFullName());
-        if(user.getRole() != null){
-            user.getRole().addUser(user);
+        if(loginIsAvailable(user.getLogin())){
+            if(user.getRole() != null){
+                user.getRole().addUser(user);
+            }
+
+            super.create(user);
+        } else {
+            logger.info("Le login a deja ete attribue");
         }
-        super.create(user);
+
     }
 
     /**
@@ -62,5 +75,10 @@ public class UserDAO extends BaseDAO<User> {
             user.getRole().removeUser(user);
         }
         super.delete(user);
+    }
+
+    public boolean loginIsAvailable(String login){
+        Query query = em.createQuery("SELECT login FROM User WHERE login = :login").setParameter("login", login);
+        return query.getResultList().isEmpty();
     }
 }

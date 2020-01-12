@@ -57,10 +57,10 @@ public class UserDAOTest {
         user.setRole(role);
         userDAO.create(user);
 
-        User userFound = userDAO.findById(user.getId()).get();
+        User userFound = userDAO.findById(user.getId());
 
         Assert.assertEquals(user, userFound);
-        Assert.assertTrue(roleDAO.findById(role.getId()).get().getUsers().contains(user));
+        Assert.assertTrue(roleDAO.findById(role.getId()).getUsers().contains(user));
     }
 
     @Test
@@ -115,6 +115,6 @@ public class UserDAOTest {
 
         Assert.assertEquals(nbUsersBeforeDelete-1, userDAO.getAll().size());
         Assert.assertFalse(userDAO.getAll().contains(user));
-        Assert.assertFalse(roleDAO.findById(role.getId()).get().getUsers().contains(user));
+        Assert.assertFalse(roleDAO.findById(role.getId()).getUsers().contains(user));
     }
 }

@@ -2,6 +2,7 @@ package controller;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ public abstract class BaseDAO<T> {
     /**
      * Entity manager which persist all data
      */
+
     protected EntityManager em;
 
     public BaseDAO(EntityManager em) {
@@ -33,7 +35,7 @@ public abstract class BaseDAO<T> {
      * @param id of the entity in the database
      * @return if found return the entity object
      */
-    abstract public Optional<T> findById(int id);
+    abstract public T findById(int id);
 
 
     /**
@@ -53,6 +55,7 @@ public abstract class BaseDAO<T> {
         em.getTransaction().begin();
 
         em.getTransaction().commit();
+
     }
 
     /**

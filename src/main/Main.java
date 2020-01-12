@@ -64,6 +64,8 @@ public class Main {
 
 		Article article3 = new Article("Chaussure de marche", "Asics", 60, 2);
 
+		Manager manager3 = new Manager("Marsault", "Bernard", "bmarsault", "sdfgfdg");
+
 		storeDAO.create(store);
 		//section.setStore(store);
 		//sectionDAO.create(section);
@@ -73,6 +75,8 @@ public class Main {
 		articleDAO.create(article);
 		article.setSection(section);
 		articleDAO.save();
+
+		logger.info(section.getArticles());
 		//sectionDAO.delete(section);
 		//store.setLeader(leader);
 		//storeDAO.save();
@@ -81,10 +85,16 @@ public class Main {
 		managerDAO.create(manager);
 
 		managerDAO.create(manager2);
-		articleDAO.create(article2);
+		managerDAO.create(manager3);
+		//articleDAO.create(article2);
 
 		article3.setSection(section);
-		articleDAO.create(article3);
+		//articleDAO.create(article3);
+
+		//logger.info(store.getSections());
+		//sectionDAO.delete(section);
+		//logger.info(store.getSections());
+		//storeDAO.delete(store);
 
 		List<Article> listArticleSection = articleDAO.findBySection(section);
 

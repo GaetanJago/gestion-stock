@@ -16,6 +16,7 @@ public class LeaderDAO extends BaseDAO<Leader> {
 
     private final static Logger logger = Logger.getLogger(LeaderDAO.class);
 
+
     public LeaderDAO(EntityManager em) {
         super(em);
     }
@@ -36,8 +37,13 @@ public class LeaderDAO extends BaseDAO<Leader> {
      * @return the leader found or an optional null if nothing has been found
      */
     @Override
-    public Optional<Leader> findById(int id) {
-        return Optional.ofNullable(em.find(Leader.class, id));
+    public Leader findById(int id) {
+        Optional<Leader> leaderFound = Optional.ofNullable(em.find(Leader.class, id));
+
+        if(leaderFound.isPresent()){
+            return leaderFound.get();
+        }
+        return null;
     }
 
 
@@ -47,10 +53,15 @@ public class LeaderDAO extends BaseDAO<Leader> {
      */
     public void create(Leader leader){
         logger.info("Creation du leader " + leader.getFullName());
-        if(leader.getStore() != null){
-            leader.getStore().setLeader(leader);
+        if(loginIsAvailable(leader.getLogin())){
+            if(leader.getStore() != null){
+                leader.getStore().setLeader(leader);
+            }
+            super.create(leader);
+        } else {
+            logger.info("Le login a deja ete attribue");
         }
-        super.create(leader);
+
     }
 
     /**
@@ -63,5 +74,10 @@ public class LeaderDAO extends BaseDAO<Leader> {
             leader.getStore().setLeader(null);
         }
         super.delete(leader);
+    }
+
+    public boolean loginIsAvailable(String login){
+        Query query = em.createQuery("SELECT login FROM User WHERE login = :login").setParameter("login", login);
+        return query.getResultList().isEmpty();
     }
 }

@@ -11,6 +11,8 @@ public class User {
 	
 	private String lastName;
 	private String firstName;
+
+	@Column(unique = true)
 	private String login;
 	private String password;
 	

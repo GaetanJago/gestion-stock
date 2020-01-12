@@ -57,7 +57,7 @@ public class ManagerDAOTest {
         manager.setSection(section);
         managerDAO.create(manager);
 
-        Manager managerFound = managerDAO.findById(manager.getId()).get();
+        Manager managerFound = managerDAO.findById(manager.getId());
 
         Assert.assertEquals(manager, managerFound);
         Assert.assertTrue(managerDAO.getAll().contains(manager));
@@ -121,7 +121,7 @@ public class ManagerDAOTest {
 
         Assert.assertEquals(nbManagersBeforeDelete-1, managerDAO.getAll().size());
         Assert.assertFalse(managerDAO.getAll().contains(manager));
-        Assert.assertNull(sectionDAO.findById(section.getId()).get().getManager());
+        Assert.assertNull(sectionDAO.findById(section.getId()).getManager());
 
     }
 

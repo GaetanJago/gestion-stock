@@ -55,7 +55,7 @@ public class RoleDAOTest {
 
         roleDAO.create(role);
 
-        Role roleFound = roleDAO.findById(role.getId()).get();
+        Role roleFound = roleDAO.findById(role.getId());
 
         Assert.assertEquals(role, roleFound);
     }

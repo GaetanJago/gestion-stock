@@ -56,10 +56,10 @@ public class SectionDAOTest {
         section.setManager(manager);
         sectionDAO.create(section);
 
-        Section sectionFound = sectionDAO.findById(section.getId()).get();
+        Section sectionFound = sectionDAO.findById(section.getId());
 
         Assert.assertEquals(section, sectionFound);
-        Assert.assertEquals(section, managerDAO.findById(manager.getId()).get().getSection());
+        Assert.assertEquals(section, managerDAO.findById(manager.getId()).getSection());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class SectionDAOTest {
 
         Assert.assertEquals(nbSectionsBeforeDelete-1, sectionDAO.getAll().size());
         Assert.assertFalse(sectionDAO.getAll().contains(section));
-        Assert.assertNull(managerDAO.findById(manager.getId()).get().getSection());
+        Assert.assertNull(managerDAO.findById(manager.getId()).getSection());
 
     }
 }

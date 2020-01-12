@@ -25,6 +25,7 @@ public class ArticleDAOTest {
     private static EntityManager em;
 
 
+
     //SETUP
     @BeforeClass
     public static void setUpBeforeClass(){
@@ -58,7 +59,7 @@ public class ArticleDAOTest {
         articleDAO.create(article);
 
         //get the new article in the database
-        Article articleFound = articleDAO.findById(article.getId()).get();
+        Article articleFound = articleDAO.findById(article.getId());
 
         Assert.assertEquals(article, articleFound);
 
@@ -69,15 +70,16 @@ public class ArticleDAOTest {
         Article article = new Article("Chaussures de sport", "Nike", 70, 10);
         Section section = new Section("Chaussure");
         article.setSection(section);
+
         sectionDAO.create(section);
         articleDAO.create(article);
 
         //get the new article in the database
-        Article articleFound = articleDAO.findById(article.getId()).get();
+        Article articleFound = articleDAO.findById(article.getId());
 
         Assert.assertEquals(article, articleFound);
         //Check if the article is in the section article list
-        Assert.assertTrue(sectionDAO.findById(section.getId()).get().getArticles().contains(article));
+        Assert.assertTrue(sectionDAO.findById(section.getId()).getArticles().contains(article));
     }
 
     @Test
@@ -139,7 +141,7 @@ public class ArticleDAOTest {
 
         Assert.assertEquals(nbArticlesBeforeDelete-1, articleDAO.getAll().size());
         Assert.assertFalse(articleDAO.getAll().contains(article));
-        Assert.assertFalse(sectionDAO.findById(section.getId()).get().getArticles().contains(article));
+        Assert.assertFalse(sectionDAO.findById(section.getId()).getArticles().contains(article));
     }
 
     @Test
