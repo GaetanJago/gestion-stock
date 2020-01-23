@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -25,7 +26,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.Main;
 import model.Article;
@@ -43,50 +46,77 @@ import view.RowStockAdmin;
  *
  */
 public class AdminManagementController implements Initializable{
+	//FOR ADD ===============================
+	
 	@FXML private Button add;
-
-
 	@FXML private ComboBox<Role> roleCB;
 	ObservableList<Role> listRo = FXCollections.observableArrayList();
-
+	/**
+	 * Contain free/available sections
+	 */
 	@FXML private ComboBox<Section> sectionCB;
+	/**
+	 * Contain free/available sections
+	 */
 	ObservableList<Section> listSec = FXCollections.observableArrayList();
-
 	@FXML private TextField passwordF;
 	@FXML private TextField loginF;
+	@FXML private TextField firstNameF;
+	@FXML private TextField nameF;
 
+	// For other ================================
+	
 	@FXML private Button disconnect;
 	@FXML private Button save;
-	@FXML private Label login;
+	@FXML private Label lab_login;
 
 	@FXML private TableView<RowManagementAdmin> table;
-	@FXML private TableColumn<RowManagementAdmin, User> userName;
+	@FXML private TableColumn<RowManagementAdmin, TextField> name;
+	@FXML private TableColumn<RowManagementAdmin, TextField> firstName;
+	@FXML private TableColumn<RowManagementAdmin, TextField> login;
+	@FXML private TableColumn<RowManagementAdmin, TextField> password;
 	@FXML private TableColumn<RowManagementAdmin, ComboBox<String>> role;
 	@FXML private TableColumn<RowManagementAdmin, ComboBox<Section>> section;
 	@FXML private TableColumn<RowManagementAdmin, ButtonIdentifiable> action;
 
 	ObservableList<RowManagementAdmin> listUserObs = FXCollections.observableArrayList();
-	ObservableList<String> listSectionObs = FXCollections.observableArrayList();
+
+	/**
+	 * contain all existant section
+	 */
 	private List<Section> sectionList = new ArrayList<Section>();
-	private List<String> roleList = new ArrayList<String>();
 
 	private Leader leader;
 
 	public void setLeader(Leader lead) {
 		this.leader = lead;
-		login.setText(lead.getLogin());
-		
+		lab_login.setText(lead.getLogin());
+
 		displayUsers();
 	}
 
+	/**
+	 * Update combo box too choose section when adding an employee
+	 */
+	public void updateSectionBox() {
+		listSec.clear();
+		listSec.add(new Section("Aucun"));
 
+		for(Section name : sectionList) {
+			if(name.getManager() == null)
+				listSec.add(name);
+		}
+	}
+
+	/**
+	 * Refresh the table display
+	 */
 	public void displayUsers() {
 		listUserObs.clear();
 
 		//DisplayAll items
 		UserDAO uD = new UserDAO(Main.em);
 		ManagerDAO mD = new ManagerDAO(Main.em);
-		RoleDAO rD = new RoleDAO(Main.em);
 		List<User> listArticle = uD.getAll();
 		int idBut = 0;
 		for(User u : listArticle) {
@@ -100,9 +130,14 @@ public class AdminManagementController implements Initializable{
 				Manager m = mD.findById(u.getId()).get();
 				ObservableList<Section> listSection = FXCollections.observableArrayList();
 				section.setItems(listSection);
-				//listSection.add("");
+
+				listSection.add(new Section("Aucun"));
+				if(m.getSection() != null)
+					listSection.add(m.getSection());
+
 				for(Section name : sectionList) {
-					listSection.add(name);
+					if(name.getManager() == null)
+						listSection.add(name);
 				}
 				section.setValue(m.getSection());
 			}
@@ -118,25 +153,35 @@ public class AdminManagementController implements Initializable{
 			if(u.getId() == leader.getId()) {
 				butt.setDisable(true);
 			}
-			
+
 			try {
 				listUserObs.add(
 						new RowManagementAdmin(
 								u,
+								new TextField(u.getLastName()),
+								new TextField(u.getFirstName()),
+								new TextField(u.getLogin()),
+								new TextField(u.getPassword()),
 								u.getRole().getName(),
 								section, 
 								butt));
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			idBut ++;
 		}
 	}
 
+	/**
+	 * Initialise controller
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		userName.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin, User>("userName"));
+		name.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin, TextField>("name"));
+		firstName.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin, TextField>("firstName"));
+		login.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin, TextField>("login"));
+		password.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin, TextField>("password"));
 		role.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin, ComboBox<String>>("role"));
 		section.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin, ComboBox<Section>>("section"));
 		action.setCellValueFactory(new PropertyValueFactory<RowManagementAdmin,  ButtonIdentifiable>("action"));
@@ -147,9 +192,8 @@ public class AdminManagementController implements Initializable{
 		List<Section> listSection = sD.getAll();
 		for(Section s : listSection) {
 			sectionList.add(s);
-			this.listSectionObs.add(s.getName());
-			listSec.add(s);
 		}
+		updateSectionBox();
 
 		//Add all roles available
 		RoleDAO rd = new RoleDAO(Main.em);
@@ -158,17 +202,25 @@ public class AdminManagementController implements Initializable{
 		for(Role r : liste) {
 			listRo.add(r);
 		}
-
-		
-
 	}
 
 	public void deleteRow(User u) {
 		UserDAO ud = new UserDAO(Main.em);
+
+		if(!u.getRole().getName().equalsIgnoreCase("admin")) {
+			SectionDAO sd = new SectionDAO(Main.em);
+			ManagerDAO md = new ManagerDAO(Main.em);
+			Manager m = md.findById(u.getId()).get();
+			if(m.getSection() != null)
+				m.getSection().setManager(null);
+			//m.setSection(null);
+			sd.save();
+		}
 		ud.delete(u);
-		
+
 		//refresh table
 		displayUsers();
+		updateSectionBox();
 	}
 
 	/**
@@ -222,15 +274,47 @@ public class AdminManagementController implements Initializable{
 		}
 	}
 
+
+
 	@FXML
 	public void addUser(ActionEvent event) {
 		ManagerDAO md = new ManagerDAO(Main.em);
 		LeaderDAO ld = new LeaderDAO(Main.em);
-		RoleDAO rd = new RoleDAO(Main.em);
-		SectionDAO sd = new SectionDAO(Main.em);
+		UserDAO ud = new UserDAO(Main.em);
+			
+		//Check empty fields
+		if(nameF.getText().isEmpty() || 
+				firstNameF.getText().isEmpty() || 
+				loginF.getText().isEmpty() ||
+				passwordF.getText().isEmpty() ||
+				roleCB.getValue() == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Erreur d'ajout");
+			alert.setContentText("Des champs sont vides");
+			Stage alStage = (Stage) alert.getDialogPane().getScene().getWindow();
+			alStage.getIcons().add(new Image("file:images/icon.jpg"));
+			alert.showAndWait();
+			return;
+		}
+		
+		//Check login already used?
+		List<User> listUser = ud.getAll();
+		for(User u : listUser) {
+			if(u.getLogin().equalsIgnoreCase(loginF.getText())) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.setHeaderText("Erreur d'ajout");
+				alert.setContentText("Le login est déjà utilisé.");
+				Stage alStage = (Stage) alert.getDialogPane().getScene().getWindow();
+				alStage.getIcons().add(new Image("file:images/icon.jpg"));
+				alert.showAndWait();
+				return;
+			}
+		}
 		
 		if(roleCB.getValue().getName().equalsIgnoreCase("admin")) {
-			Leader l = new Leader(null, null, loginF.getText(), passwordF.getText());
+			Leader l = new Leader(nameF.getText(), firstNameF.getText(), loginF.getText(), passwordF.getText());
 			l.setRole(roleCB.getValue());
 			ld.create(l);
 		}
@@ -242,24 +326,115 @@ public class AdminManagementController implements Initializable{
 		}
 		displayUsers();
 	}	
-	
+
+	/**
+	 * if admin role is selected then section cb is disable
+	 * @param event
+	 */
+	@FXML
+	public void changeRole(ActionEvent event) {
+		if(roleCB.getValue().getName().equalsIgnoreCase("admin")) {
+			sectionCB.setDisable(true);
+		}
+		else {
+			sectionCB.setDisable(false);
+		}
+	}
+
+	/**
+	 * Save modification done in the table, by clicking save button
+	 * @param event
+	 */
 	@FXML 
 	public void saveModification(ActionEvent event) {
-		for(RowManagementAdmin row : listUserObs) {
-			User u = row.getUserName();
-			if(!u.getRole().getName().equalsIgnoreCase("admin")) {
-				ManagerDAO md = new ManagerDAO(Main.em);
-				Manager m = md.findById(u.getId()).get();
-				m.setSection(row.getSection().getValue());
-				md.save();				
+		if(checkSimilarities()) {
+			for(RowManagementAdmin row : listUserObs) {
+				User u = row.getUser();
+				if(!u.getRole().getName().equalsIgnoreCase("admin")) {
+
+					ManagerDAO md = new ManagerDAO(Main.em);
+					SectionDAO sd = new SectionDAO(Main.em);
+					Manager m = md.findById(u.getId()).get();
+
+					if(row.getSection().getValue() != null &&
+							row.getSection().getValue() != m.getSection()) {
+						if(!row.getSection().getValue().getName().equalsIgnoreCase("Aucun")){
+							if(m.getSection() != null)
+								m.getSection().setManager(null);
+							row.getSection().getValue().setManager(m);
+							m.setSection(row.getSection().getValue());
+						}
+						else {
+							if(m.getSection() != null) {
+								m.getSection().setManager(null);
+							}
+							m.setSection(null);
+						}
+					}
+					//Save manager et sections modifications
+					md.save();
+					sd.save();
+				}
+				u.setFirstName(row.getFirstName().getText());
+				u.setLastName(row.getName().getText());
+				u.setLogin(row.getLogin().getText());
+				u.setPassword(row.getPassword().getText());
+				
+				//Save user modifications
+				UserDAO ud = new UserDAO(Main.em);
+				ud.save();
 			}
+			displayUsers();
+			updateSectionBox();
+			
 		}
-		displayUsers();
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur");
+			alert.setHeaderText("Erreur de sauvegarde");
+			alert.setContentText("Le login et rayon attribués pour chaque utlisateurs doivent être uniques.");
+			Stage alStage = (Stage) alert.getDialogPane().getScene().getWindow();
+			alStage.getIcons().add(new Image("file:images/icon.jpg"));
+			alert.showAndWait();
+		}
 	}
-	
+
 	@FXML
 	public void cancelAction(ActionEvent event) {
 		displayUsers();
+	}
+
+	/**
+	 * Check if there are similarities in the data table
+	 * @return
+	 */
+	public boolean checkSimilarities() {
+		for(RowManagementAdmin row : listUserObs) {
+			boolean comparable = false;
+			for(RowManagementAdmin row_compare : listUserObs) {
+
+				if(comparable == true) {
+					if(row.getLogin().getText().equalsIgnoreCase(row_compare.getLogin().getText()) == true) {						
+						return false;
+					}
+
+					if(row.getSection() != null && row_compare.getSection() != null) {
+						if(row.getSection().getValue() == null ||  row_compare.getSection().getValue() == null ||
+								row.getSection().getValue().getName().equalsIgnoreCase("Aucun")){
+							continue;
+						}
+						else if(row.getSection().getValue().getName().equalsIgnoreCase(row_compare.getSection().getValue().getName()))
+							return false;
+					}
+
+				}
+				if(comparable == false && row_compare.equals(row)) {
+					comparable = true;
+				}
+
+			}
+		}
+		return true;
 	}
 }
 

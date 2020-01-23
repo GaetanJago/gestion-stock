@@ -37,7 +37,7 @@ public class InterfaceController implements Initializable{
 	@FXML
 	private Button connect;
 
-	@FXML private TextField email;
+	@FXML private TextField login;
 	@FXML private TextField password;
 
 	/**
@@ -61,7 +61,7 @@ public class InterfaceController implements Initializable{
 			List<User> userList = uD.getAll();
 			
 			for(User u : userList) {
-				if(u.getLogin().equals(email.getText())) {
+				if(u.getLogin().equals(login.getText())) {
 					if(u.getPassword().equals(password.getText())) {
 						match = true;
 						
