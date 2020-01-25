@@ -7,20 +7,20 @@ import javax.persistence.*;
 
 @Entity
 public class Section {
-	
-	@Id 
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String name;
-	
+
 	@ManyToOne
 	private Store store;
-	
+
 	@OneToMany(mappedBy = "section",
-			cascade = CascadeType.ALL, orphanRemoval = true)
+			cascade = CascadeType.MERGE, orphanRemoval = true)
 	private List<Article> articles;
-	
+
 	@OneToOne
 	private Manager manager;
 
@@ -97,6 +97,11 @@ public class Section {
 			article.setSection(null);
 		}
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+
+
 }

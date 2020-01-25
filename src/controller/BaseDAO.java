@@ -44,7 +44,9 @@ public abstract class BaseDAO<T> {
      */
     protected void create(T object){
         em.getTransaction().begin();
-        em.persist(object);
+        if (!em.contains(object)) {
+            em.persist(object);
+        }
         em.getTransaction().commit();
     }
 

@@ -100,7 +100,7 @@ public class UserDAOTest {
 
     @Test
     public void testDelete(){
-        User user = new User("Lambert", "Paul", "plambert", "password");
+        User user = new User("Clement", "Paul", "pclement", "password");
 
         Role role = new Role("Admin");
         roleDAO.create(role);
@@ -116,5 +116,19 @@ public class UserDAOTest {
         Assert.assertEquals(nbUsersBeforeDelete-1, userDAO.getAll().size());
         Assert.assertFalse(userDAO.getAll().contains(user));
         Assert.assertFalse(roleDAO.findById(role.getId()).getUsers().contains(user));
+    }
+
+    @Test
+    public void testAuthenticate(){
+        User user = new User("Henry", "Jean", "jhenry", "password123");
+
+        userDAO.create(user);
+
+        Assert.assertEquals(user, userDAO.authenticate("jhenry", "password123"));
+        Assert.assertNull(userDAO.authenticate("jhenry", "wrongPassword"));
+        Assert.assertNull(userDAO.authenticate("wrongLogin", "password123"));
+        Assert.assertNull(userDAO.authenticate("wrongLogin", "wrongPassword"));
+
+
     }
 }

@@ -1,150 +1,96 @@
 package main;
-/*
-import java.awt.GraphicsEnvironment;
-import java.io.Console;
-import java.io.File;
-import java.io.PrintWriter;
-*/
-import controller.*;
 import javafx.application.Application;
-import model.*;
+import model.Article;
+import model.Leader;
+import model.Manager;
+import model.Role;
+import model.Section;
+import model.Store;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+
+import controller.ArticleDAO;
+import controller.LeaderDAO;
+import controller.ManagerDAO;
+import controller.RoleDAO;
+import controller.SectionDAO;
+import controller.StoreDAO;
 import view.Interface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.List;
+
 
 public class Main {
-	
+
 	//private static String batName = "cher.bat";
 
 	private final static Logger logger = Logger.getLogger(Main.class);
 
+	public static EntityManagerFactory emf;
+	public static EntityManager em;
+
 	public static void main(String[] args) {
 		PropertyConfigurator.configure("log4j.properties");
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("stock"); //name of persistence unit
-		EntityManager em = emf.createEntityManager();
+		emf = Persistence.createEntityManagerFactory("stock"); //name of persistence unit
+		em = emf.createEntityManager();
 
-        /*DAO dao = new DAO(em);
+		generateExample();
 
-        Store store = new Store("11 Launay Plumieux");
-        dao.create(store);
-
-
-        Section section = new Section("chaussure");
-        section.setStore(store);
-		dao.create(section);
-		//dao.delete(section);
-		System.out.println(store.getSections());
-		store.removeSection(section);
-		dao.delete(section);
-		System.out.println(store.getSections());*/
-
-		ArticleDAO articleDAO = new ArticleDAO(em);
-		StoreDAO storeDAO = new StoreDAO(em);
-		SectionDAO sectionDAO = new SectionDAO(em);
-		LeaderDAO leaderDAO = new LeaderDAO(em);
-		ManagerDAO managerDAO = new ManagerDAO(em);
-
-		Store store = new Store("64 avenue Jean Portalis Tours");
-		Section section = new Section("Chaussure");
-		Article article = new Article("Chaussure de foot", "Nike", 50, 1);
-		Article article2 = new Article("Raquette de tennis", "Babolat", 40, 5);
-		Leader leader = new Leader();
-		leader.setStore(store);
-		Manager manager = new Manager("Martin", "Pierre", "pmartin", "azeqsd");
-
-		manager.setSection(section);
-		Manager manager2 = new Manager("Marsault", "Bastien", "bmarsault", "emufac");
-		manager2.setSection(section);
-
-		Article article3 = new Article("Chaussure de marche", "Asics", 60, 2);
-
-		Manager manager3 = new Manager("Marsault", "Bernard", "bmarsault", "sdfgfdg");
-
-		storeDAO.create(store);
-		//section.setStore(store);
-		//sectionDAO.create(section);
-		store.addSection(section);
-		storeDAO.save();
-		//storeDAO.delete(store);
-		articleDAO.create(article);
-		article.setSection(section);
-		articleDAO.save();
-
-		logger.info(section.getArticles());
-		//sectionDAO.delete(section);
-		//store.setLeader(leader);
-		//storeDAO.save();
-		leaderDAO.create(leader);
-		leaderDAO.delete(leader);
-		managerDAO.create(manager);
-
-		managerDAO.create(manager2);
-		managerDAO.create(manager3);
-		//articleDAO.create(article2);
-
-		article3.setSection(section);
-		//articleDAO.create(article3);
-
-		//logger.info(store.getSections());
-		//sectionDAO.delete(section);
-		//logger.info(store.getSections());
-		//storeDAO.delete(store);
-
-		List<Article> listArticleSection = articleDAO.findBySection(section);
-
-		for (Article art :
-			 listArticleSection) {
-			logger.info(art.getName());
-		}
-
-
-
-		//sectionDAO.delete(section);
-
-		//managerDAO.delete(manager);
-		//storeDAO.save();
-		//leaderDAO.delete(leader);
-		//storeDAO.delete(store);
-
-		em.close();
-		emf.close();
-		
 		Application.launch(Interface.class,args);
 	}
-	
-	/*
-	public static void launch() {
-		Console console = System.console();
-		if(console != null) {
-			File f = new File(batName);
-			if(f.exists()) {
-				f.delete();
-			}
-		}
-		else if (!GraphicsEnvironment.isHeadless()) {
-			String os = System.getProperty("os.name").toLowerCase();
-			if(os.contains("indows")) {
-				try {
-					File jar = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-					PrintWriter out  = new PrintWriter(new File(batName));
-					out.println("@echo off");
-					out.println("title test");
-					out.println("java -jar " + jar.getPath());
-					out.close();
-					Runtime rt = Runtime.getRuntime();
-					rt.exec("cmd /c start " + batName);					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			System.exit(0);
-		}
+
+	public static void generateExample() {
+		StoreDAO storeDAO = new StoreDAO(em);
+		Store store = new Store("64 avenue Jean Portalis Tours");
+		storeDAO.create(store);
+
+		SectionDAO sectionDAO = new SectionDAO(em);
+		Section section = new Section("Chaussure");
+		Section section_b = new Section("Raquette");
+		section.setStore(store);
+		section_b.setStore(store);
+		sectionDAO.create(section);
+		sectionDAO.create(section_b);
+
+		ArticleDAO articleDAO = new ArticleDAO(em);
+		Article article = new Article("Chaussure de foot", "Nike", 50, 1);
+		Article article2 = new Article("Raquette de tennis", "Babolat", 40, 5);
+		article.setSection(section);
+		article2.setSection(section_b);
+		articleDAO.create(article);
+		articleDAO.create(article2);
+
+		RoleDAO rd = new RoleDAO(em);
+		Role r_a = new Role("Admin");
+		Role r_m = new Role("Manager");
+		rd.create(r_a);
+		rd.create(r_m);
+
+		LeaderDAO ld = new LeaderDAO(em);
+		Leader l = new Leader("chef", "du mag", "admin", "admin");
+		Leader bl = new Leader("bras droit", "du magasin", "admin2", "admin2");
+		l.setRole(r_a);
+		bl.setRole(r_a);
+		l.setStore(store);
+		ld.create(l);
+		ld.create(bl);
+
+		ManagerDAO md = new ManagerDAO(Main.em);
+		Manager m_a = new Manager("paul", "martin", "pmartin", "azeqsd");
+		Manager m_b = new Manager("Bastien", "marsault", "bmarsault", "123456");
+		//m_a.setSection(section);
+		//m_b.setSection(section_b);
+		//section.setManager(m_a);
+		//section_b.setManager(m_b);
+
+		m_a.setRole(r_m);
+		m_b.setRole(r_m);
+		md.create(m_a);
+		md.create(m_b);
+
 	}
-	*/
 }

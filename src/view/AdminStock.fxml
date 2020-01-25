@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="717.0" stylesheets="@AdminStockStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminStockController">
+<BorderPane prefHeight="569.0" prefWidth="717.0" stylesheets="@AdminStockStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminStockController">
    <center>
       <BorderPane fx:id="back" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
             <FlowPane alignment="CENTER_LEFT" orientation="VERTICAL" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Filtrer par rayon :" />
-                  <ComboBox fx:id="filter" prefWidth="150.0" promptText="Tout les rayons" />
+                  <ComboBox fx:id="filter" onAction="#changeFilter" prefWidth="150.0" promptText="Tous" />
                </children>
                <padding>
                   <Insets left="20.0" />
@@ -27,8 +27,8 @@
          <bottom>
             <FlowPane alignment="CENTER_RIGHT" hgap="20.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Annuler" />
-                  <Button mnemonicParsing="false" text="Sauvegarder">
+                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancelAction" text="Annuler" />
+                  <Button fx:id="save" mnemonicParsing="false" onAction="#saveModification" text="Sauvegarder">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -70,7 +70,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label text="bmarsault" textFill="WHITE">
+                  <Label fx:id="login" text="bmarsault" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

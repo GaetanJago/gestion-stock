@@ -8,14 +8,12 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String lastName;
 	private String firstName;
-
-	@Column(unique = true)
 	private String login;
 	private String password;
-	
+
 
 	@ManyToOne
 	private Role role;
@@ -90,5 +88,11 @@ public class User {
 
 	public String getFullName(){
 		return this.firstName + " " + this.lastName;
+	}
+
+
+	@Override
+	public String toString() {
+		return getLogin();
 	}
 }

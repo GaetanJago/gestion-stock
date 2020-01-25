@@ -2,6 +2,7 @@ package controller;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import model.Article;
+import model.Manager;
 import model.User;
 import org.apache.log4j.Logger;
 
@@ -80,5 +81,14 @@ public class UserDAO extends BaseDAO<User> {
     public boolean loginIsAvailable(String login){
         Query query = em.createQuery("SELECT login FROM User WHERE login = :login").setParameter("login", login);
         return query.getResultList().isEmpty();
+    }
+
+    public User authenticate(String login, String password){
+        Query query = em.createQuery("FROM User WHERE login = :login AND password = :password").setParameter("login", login).setParameter("password", password);
+        List<User> user = (List<User>) query.getResultList();
+        if(user.isEmpty()){
+            return null;
+        }
+        return user.get(0);
     }
 }

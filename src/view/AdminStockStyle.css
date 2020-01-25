@@ -4,6 +4,11 @@
 #top{
 	-fx-background-color: linear-gradient(rgba(12, 88, 219, 255),  rgba(78, 50, 120, 255));
 }
-#actionCol,#roleCol,#sectionCol{
+
+#actionCol,#roleCol,#sectionCol,#stock,#userName{
+	-fx-alignment: CENTER;
+}
+
+#section,#modify{
 	-fx-alignment: CENTER;
 }

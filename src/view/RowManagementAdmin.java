@@ -1,39 +1,47 @@
 package view;
 
 import javafx.scene.control.ComboBox;
+import model.Section;
+import model.User;
 
+/**
+ * Row to insert in admin management table
+ *
+ */
 public class RowManagementAdmin {
 	
-	private String userName;
-	private ComboBox<String> role;
-	private ComboBox<String> section;
+	private User userName;
+	private String role;
+	private ComboBox<Section> section;
 	private ButtonIdentifiable action;
 		
-	public RowManagementAdmin(String userName, ComboBox<String> role, ComboBox<String> section, ButtonIdentifiable action) {
+	public RowManagementAdmin(User userName, String role, ComboBox<Section> section, ButtonIdentifiable action	) {
 		super();
 		this.userName = userName;
 		this.role = role;
 		this.section = section;
 		this.action = action;
 		
+		if(this.section != null)
+			this.section.setPrefWidth(Double.MAX_VALUE);
 	}
 	
-	public String getUserName() {
+	public User getUserName() {
 		return userName;
 	}
-	public void setUserName(String userName) {
+	public void setUserName(User userName) {
 		this.userName = userName;
 	}
-	public ComboBox<String> getRole() {
+	public String getRole() {
 		return role;
 	}
-	public void setRole(ComboBox<String> role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
-	public ComboBox<String> getSection() {
+	public ComboBox<Section> getSection() {
 		return section;
 	}
-	public void setSection(ComboBox<String> section) {
+	public void setSection(ComboBox<Section> section) {
 		this.section = section;
 	}
 	public ButtonIdentifiable getAction() {

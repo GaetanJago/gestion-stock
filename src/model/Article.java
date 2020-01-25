@@ -5,20 +5,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Article")
 public class Article {
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String name;
 	private String brand;
 	private int price;
 	private int quantity;
-	
+
 	@ManyToOne
 	private Section section;
-	
+
 	public Article(String name, String brand, int price, int quantity) {
 		super();
 		this.name = name;
@@ -84,6 +84,10 @@ public class Article {
 			this.section.getArticles().add(this);
 		}
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+
 }

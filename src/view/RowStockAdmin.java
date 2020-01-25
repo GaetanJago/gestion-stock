@@ -1,32 +1,77 @@
 package view;
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import model.Article;
+import model.Section;
 
+/**
+ * Row to insert in admin stock table
+ *
+ */
 public class RowStockAdmin {
 	private int maxAdd = 999;
 	
 	private TextField product;
-	private TextField section;
+	private ComboBox<Section> section;
 	private int stock;
 	private Spinner<Integer> modify;
 	
 	private SpinnerValueFactory<Integer> factory;
 	
-	public RowStockAdmin(TextField product, TextField section, int stock, Spinner<Integer> modify) {
+	private Article art;
+	
+	public RowStockAdmin(TextField product, ComboBox<Section> section, int stock, Spinner<Integer> modify,Article a) {
 		super();
 		this.product = product;
 		this.section = section;
 		this.stock = stock;
 		this.modify = modify;
+		this.art = a;
+		
+		this.section.setPrefWidth(Double.MAX_VALUE);
+		this.modify.setPrefWidth(Double.MAX_VALUE);
 		
 		factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(-(stock),maxAdd,0);
 		this.modify.setValueFactory(factory);
 		this.modify.setEditable(true);
-		this.modify.setPrefWidth(Control.USE_COMPUTED_SIZE);
+		
 	}
+
+	
+	
+	public int getMaxAdd() {
+		return maxAdd;
+	}
+
+
+
+	public void setMaxAdd(int maxAdd) {
+		this.maxAdd = maxAdd;
+	}
+
+
+
+	public Article getArt() {
+		return art;
+	}
+
+
+
+	public void setArt(Article art) {
+		this.art = art;
+	}
+
+
+
+	public void setSection(ComboBox<Section> section) {
+		this.section = section;
+	}
+
+
 
 	public TextField getProduct() {
 		return product;
@@ -36,11 +81,11 @@ public class RowStockAdmin {
 		this.product = product;
 	}
 
-	public TextField getSection() {
+	public ComboBox<Section> getSection() {
 		return section;
 	}
 
-	public void setSectionName(TextField section) {
+	public void setSectionName(ComboBox<Section> section) {
 		this.section = section;
 	}
 

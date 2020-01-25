@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="717.0" stylesheets="@AdminStockStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminManagementController">
+<BorderPane prefHeight="564.0" prefWidth="717.0" stylesheets="@AdminStockStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminManagementController">
    <center>
       <BorderPane fx:id="back" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <bottom>
             <FlowPane alignment="CENTER_RIGHT" hgap="20.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Annuler" />
-                  <Button mnemonicParsing="false" text="Sauvegarder">
+                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancelAction" text="Annuler" />
+                  <Button fx:id="save" mnemonicParsing="false" onAction="#saveModification" text="Sauvegarder">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -65,15 +65,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Nom d'utilisateur :" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Label text="Login" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Label text="Mot de passe :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Rôle :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label text="Rayon :" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <TextField GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox prefHeight="25.0" prefWidth="656.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <ComboBox prefHeight="25.0" prefWidth="551.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Button alignment="TOP_RIGHT" mnemonicParsing="false" text="Ajouter" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <TextField fx:id="loginF" GridPane.rowIndex="2" />
+                        <TextField fx:id="passwordF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="roleCB" prefHeight="25.0" prefWidth="656.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="sectionCB" prefHeight="25.0" prefWidth="551.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Button fx:id="add" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#addUser" text="Ajouter" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets top="10.0" />
                            </GridPane.margin>
@@ -112,7 +112,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label text="bmarsault" textFill="WHITE">
+                  <Label fx:id="login" text="bmarsault" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

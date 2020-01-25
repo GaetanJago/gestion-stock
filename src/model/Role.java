@@ -65,4 +65,9 @@ public class Role {
 			user.setRole(null);
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

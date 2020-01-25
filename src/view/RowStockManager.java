@@ -3,7 +3,12 @@ package view;
 import javafx.scene.control.Control;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import model.Article;
 
+/**
+ * Row to insert in manager stock table
+ *
+ */
 public class RowStockManager {
 	private int maxAdd = 999;
 	
@@ -11,20 +16,34 @@ public class RowStockManager {
 	private String section;
 	private int stock;
 	private Spinner<Integer> modify;
+	private Article article;
 	
 	private SpinnerValueFactory<Integer> factory;
 	
-	public RowStockManager(String product, String section, int stock, Spinner<Integer> modify) {
+	public RowStockManager(String product, String section, int stock, Spinner<Integer> modify,Article a) {
 		super();
 		this.product = product;
 		this.section = section;
 		this.stock = stock;
 		this.modify = modify;
+		this.article = a;
 		
-		factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(-(stock),maxAdd,0);
-		this.modify.setValueFactory(factory);
-		this.modify.setEditable(true);
-		this.modify.setPrefWidth(Control.USE_COMPUTED_SIZE);
+		if(modify != null) {
+			factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(-(stock),maxAdd,0);
+			this.modify.setValueFactory(factory);
+			this.modify.setEditable(true);
+			this.modify.setPrefWidth(Double.MAX_VALUE);
+		}
+		
+	}
+
+	
+	public Article getArticle() {
+		return article;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
 	}
 
 	public String getProduct() {
