@@ -81,16 +81,12 @@ public class Main {
 
 		ManagerDAO md = new ManagerDAO(Main.em);
 		Manager m_a = new Manager("paul", "martin", "pmartin", "azeqsd");
-		Manager m_b = new Manager("Bastien", "marsault", "bmarsault", "123456");
-		//m_a.setSection(section);
-		//m_b.setSection(section_b);
-		//section.setManager(m_a);
-		//section_b.setManager(m_b);
-
+		m_a.setSection(section);
 		m_a.setRole(r_m);
-		m_b.setRole(r_m);
 		md.create(m_a);
+		Manager m_b = new Manager("Bastien", "marsault", "bmarsault", "123456");
+		m_b.setSection(section_b);
+		m_b.setRole(r_m);
 		md.create(m_b);
-
 	}
 }

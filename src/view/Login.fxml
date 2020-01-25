@@ -24,8 +24,8 @@
    <center>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="602.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="143.0" text="Email" />
-            <TextField id="email" fx:id="email" promptText="Email" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="143.0" text="Login" />
+            <TextField id="email" fx:id="login" promptText="Login" />
             <Label text="Mot de passe">
                <opaqueInsets>
                   <Insets />

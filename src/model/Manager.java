@@ -23,6 +23,18 @@ public class Manager extends User{
 
 	public void setSection(Section section) {
 		this.section = section;
+		if(section != null){
+			if(this.section.getManager() == null || !this.section.getManager().equals(this)){
+				this.section.setManager(this);
+			}
+		}
+	}
+
+	public void removeSection(){
+		if(this.section != null && this.section.getManager() != null){
+			this.section.setManager(null);
+		}
+		this.section = null;
 	}
 
 }

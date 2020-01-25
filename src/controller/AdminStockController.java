@@ -191,19 +191,22 @@ public class AdminStockController implements Initializable{
 		for(RowStockAdmin row : listStockRowAdmin) {
 			ArticleDAO ad = new ArticleDAO(Main.em);
 			Article a = row .getArt();
-			SectionDAO sd = new SectionDAO(Main.em);
+			/*SectionDAO sd = new SectionDAO(Main.em);
 			Section s = row.getSection().getValue();
 			a.getSection().getArticles().remove(a);
 			s.getArticles().add(a);
 			a.setSection(row.getSection().getValue());
 			a.setName(row.getProduct().getText());
+			*/
+			a.getSection().getArticles().remove(a);
+			a.setSection(row.getSection().getValue());
 			
 			row.getModify().increment();
 			row.getModify().decrement();
 			a.setQuantity(a.getQuantity() + row.getModify().getValue());
 			
 			ad.save();
-			sd.save();
+			//sd.save();
 		}
 		dispStock(filter.getValue());
 	}

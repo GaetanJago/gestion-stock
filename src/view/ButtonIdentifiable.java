@@ -20,8 +20,6 @@ public class ButtonIdentifiable extends Button {
 		this.idButton = id;
 		this.user = u;
 	}
-	
-	
 
 	public User getUser() {
 		return user;

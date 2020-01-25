@@ -69,7 +69,7 @@ public class ManagerDAO extends BaseDAO<Manager> {
     public void delete(Manager manager){
         logger.info("Suppression du manager " + manager.getFullName());
         if(manager.getSection() != null){
-            manager.getSection().setManager(null);
+            manager.getSection().removeManager();
         }
         super.delete(manager);
     }

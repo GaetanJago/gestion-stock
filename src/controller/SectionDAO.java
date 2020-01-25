@@ -72,7 +72,7 @@ public class SectionDAO extends BaseDAO<Section> {
             section.getStore().removeSection(section);
         }
         if(section.getManager() != null){
-            section.getManager().setSection(null);
+            section.getManager().removeSection();
         }
         super.delete(section);
     }

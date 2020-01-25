@@ -78,10 +78,21 @@ public class Section {
 	}
 
 	public void setManager(Manager manager) {
-		if(this.manager != null){
+		this.manager = manager;
+		if (manager != null){
+			if(this.manager.getSection() == null || !this.manager.getSection().equals(this)){
+				this.manager.setSection(this);
+			}
+
+		}
+
+	}
+
+	public void removeManager(){
+		if(this.manager != null && this.manager.getSection() != null){
 			this.manager.setSection(null);
 		}
-		this.manager = manager;
+		this.manager = null;
 	}
 
 	public void addArticle(Article article){
