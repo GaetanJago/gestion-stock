@@ -22,16 +22,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-
+/**
+ * Launch the application
+ *
+ */
 public class Main {
 
 	//private static String batName = "cher.bat";
 
 	private final static Logger logger = Logger.getLogger(Main.class);
 
+	/**
+	 * Use for persistence in hibernate
+	 */
 	public static EntityManagerFactory emf;
+	/**
+	 * Use for persistence in hibernate
+	 */
 	public static EntityManager em;
 
+	/**
+	 * Main of the application
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		PropertyConfigurator.configure("log4j.properties");
 
@@ -43,6 +56,9 @@ public class Main {
 		Application.launch(Interface.class,args);
 	}
 
+	/**
+	 * generate an example in the data Base
+	 */
 	public static void generateExample() {
 		StoreDAO storeDAO = new StoreDAO(em);
 		Store store = new Store("64 avenue Jean Portalis Tours");

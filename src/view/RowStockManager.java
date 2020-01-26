@@ -1,6 +1,5 @@
 package view;
 
-import javafx.scene.control.Control;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import model.Article;

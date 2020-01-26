@@ -66,7 +66,7 @@ public class AdminManagementController implements Initializable{
 	@FXML private TextField firstNameF;
 	@FXML private TextField nameF;
 
-	// For other ================================
+	// FOR OTHER ================================
 	
 	@FXML private Button disconnect;
 	@FXML private Button save;
@@ -87,20 +87,25 @@ public class AdminManagementController implements Initializable{
 	 * contain all existant section
 	 */
 	private List<Section> sectionList = new ArrayList<Section>();
-
-	private Leader leader;
-
-	@FXML public void focusToLogin(KeyEvent event) {
-		if(event.getCode() == KeyCode.TAB)
-			loginF.requestFocus();
-	}
 	
+	/**
+	 * Leader's page
+	 */
+	private Leader leader;
+	
+	/**
+	 * Shortcut to add a user
+	 * @param event
+	 */
 	@FXML public void addKey(KeyEvent event) {
 		if(event.getCode() == KeyCode.ENTER)
 			addUser(null);
 	}
 	
-	
+	/**
+	 * set leader's page
+	 * @param lead
+	 */
 	public void setLeader(Leader lead) {
 		this.leader = lead;
 		lab_login.setText(lead.getLogin());
@@ -424,6 +429,10 @@ public class AdminManagementController implements Initializable{
 		}
 	}
 
+	/**
+	 * Cancel all modification in the table
+	 * @param event
+	 */
 	@FXML
 	public void cancelAction(ActionEvent event) {
 		displayUsers();

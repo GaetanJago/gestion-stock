@@ -60,6 +60,10 @@ public class AdminStockController implements Initializable{
 
 	private Leader leader;
 
+	/**
+	 * Set leader's page
+	 * @param lead
+	 */
 	public void setLeader(Leader lead) {
 		this.leader = lead;
 		login.setText(lead.getLogin());
@@ -144,13 +148,21 @@ public class AdminStockController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * update table using section filter
+	 * @param event
+	 */
 	@FXML
 	public void changeFilter(ActionEvent event) {
 		dispStock(filter.getValue());
 
 	}
 
+	/**
+	 * update display in the table
+	 * @param sectionName
+	 */
 	public void dispStock(String sectionName) {
 		listStockRowAdmin.clear();
 		//DisplayAll items
@@ -186,6 +198,10 @@ public class AdminStockController implements Initializable{
 		}
 	}
 	
+	/**
+	 * Save article modifications
+	 * @param event
+	 */
 	@FXML 
 	public void saveModification(ActionEvent event) {
 		for(RowStockAdmin row : listStockRowAdmin) {
@@ -211,6 +227,10 @@ public class AdminStockController implements Initializable{
 		dispStock(filter.getValue());
 	}
 	
+	/**
+	 * reset / refresh display of the table and cancel modification in it
+	 * @param event
+	 */
 	@FXML
 	public void cancelAction(ActionEvent event) {
 		dispStock(filter.getValue());

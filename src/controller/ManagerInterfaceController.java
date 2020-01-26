@@ -69,6 +69,10 @@ public class ManagerInterfaceController implements Initializable {
 
 	private Manager man;
 
+	/**
+	 * Set manager's page
+	 * @param man
+	 */
 	public void setManager(Manager man) {
 		this.man = man;
 		login.setText(man.getLogin());
@@ -120,7 +124,10 @@ public class ManagerInterfaceController implements Initializable {
 		filter.setItems(listFilter);
 	}
 
-
+	/**
+	 * Update table using section filter
+	 * @param event
+	 */
 	@FXML
 	public void changeFilter(ActionEvent event) {
 		listStockRowManager.clear();
@@ -174,6 +181,10 @@ public class ManagerInterfaceController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Save modifications done in the table
+	 * @param event
+	 */
 	@FXML 
 	public void saveModification(ActionEvent event) {
 		for(RowStockManager row : listStockRowManager) {
@@ -192,7 +203,10 @@ public class ManagerInterfaceController implements Initializable {
 		changeFilter(null);
 	}
 
-	
+	/**
+	 * Cancel modifications done in the table
+	 * @param event
+	 */
 	@FXML
 	public void cancelAction(ActionEvent event) {
 		changeFilter(null);
