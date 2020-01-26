@@ -74,22 +74,22 @@
                         <Label text="Mot de passe :" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <Label text="Rôle :" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                         <Label text="Rayon :" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                        <TextField fx:id="loginF" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <TextField fx:id="passwordF" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="roleCB" onAction="#changeRole" prefHeight="25.0" prefWidth="656.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="sectionCB" prefHeight="25.0" prefWidth="551.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                        <Button fx:id="add" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#addUser" text="Ajouter" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin>
-                        </Button>
                         <Label prefHeight="20.0" prefWidth="171.0" text="Ajouter utilisateur">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <TextField fx:id="nameF" GridPane.rowIndex="2" />
-                        <TextField fx:id="firstNameF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="firstNameF" onKeyPressed="#focusToLogin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="loginF" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="passwordF" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="roleCB" onAction="#changeRole" prefHeight="25.0" prefWidth="656.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="sectionCB" prefHeight="25.0" prefWidth="551.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                        <Button fx:id="add" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#addUser" onKeyPressed="#addKey" text="Ajouter" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets top="10.0" />
+                           </GridPane.margin>
+                        </Button>
                         <Label text="Nom :" GridPane.rowIndex="1" />
                         <Label text="Prénom :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>

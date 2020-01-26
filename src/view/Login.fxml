@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="back" prefHeight="298.0" prefWidth="162.0" stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InterfaceController">
+<BorderPane fx:id="back" onKeyPressed="#enterPressed" prefHeight="298.0" prefWidth="162.0" stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InterfaceController">
    <top>
       <FlowPane fx:id="top" alignment="CENTER" orientation="VERTICAL" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -35,7 +35,7 @@
                </FlowPane.margin>
             </Label>
             <PasswordField fx:id="password" prefHeight="25.0" prefWidth="211.0" promptText="Mot de passe" />
-            <Button fx:id="connect" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchConnect" prefHeight="25.0" prefWidth="88.0" text="Se connecter">
+            <Button fx:id="connect" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchConnect" onKeyPressed="#enterPressed" prefHeight="25.0" prefWidth="88.0" text="Se connecter">
                <FlowPane.margin>
                   <Insets top="20.0" />
                </FlowPane.margin>

@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -40,6 +43,11 @@ public class InterfaceController implements Initializable{
 	@FXML private TextField login;
 	@FXML private TextField password;
 
+	@FXML public void enterPressed(KeyEvent event) {
+		if(event.getCode() == KeyCode.ENTER)
+			switchConnect(null);
+	}
+	
 	/**
 	 * Change panel for a specific connection
 	 * @param event

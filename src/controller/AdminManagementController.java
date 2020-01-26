@@ -29,6 +29,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.Main;
 import model.Article;
@@ -88,6 +90,17 @@ public class AdminManagementController implements Initializable{
 
 	private Leader leader;
 
+	@FXML public void focusToLogin(KeyEvent event) {
+		if(event.getCode() == KeyCode.TAB)
+			loginF.requestFocus();
+	}
+	
+	@FXML public void addKey(KeyEvent event) {
+		if(event.getCode() == KeyCode.ENTER)
+			addUser(null);
+	}
+	
+	
 	public void setLeader(Leader lead) {
 		this.leader = lead;
 		lab_login.setText(lead.getLogin());
@@ -146,7 +159,7 @@ public class AdminManagementController implements Initializable{
 			ButtonIdentifiable butt = new ButtonIdentifiable("Supprimer",idBut,u);
 			butt.setOnAction(new EventHandler<ActionEvent>() {
 				@Override public void handle(ActionEvent e) {
-					deleteRow(((ButtonIdentifiable)e.getSource()).getUser());
+					deleteUser(((ButtonIdentifiable)e.getSource()).getUser());
 				}
 			});
 			//not deletable
@@ -202,9 +215,14 @@ public class AdminManagementController implements Initializable{
 		for(Role r : liste) {
 			listRo.add(r);
 		}
+		loginF.setFocusTraversable(true);
 	}
 
-	public void deleteRow(User u) {
+	/**
+	 * Delete the user u
+	 * @param u
+	 */
+	public void deleteUser(User u) {
 		UserDAO ud = new UserDAO(Main.em);
 
 		if(!u.getRole().getName().equalsIgnoreCase("admin")) {
@@ -275,7 +293,10 @@ public class AdminManagementController implements Initializable{
 	}
 
 
-
+	/**
+	 * add an user using specifis fields
+	 * @param event
+	 */
 	@FXML
 	public void addUser(ActionEvent event) {
 		ManagerDAO md = new ManagerDAO(Main.em);
@@ -396,7 +417,7 @@ public class AdminManagementController implements Initializable{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur");
 			alert.setHeaderText("Erreur de sauvegarde");
-			alert.setContentText("Le login et rayon attribuï¿½s pour chaque utlisateurs doivent ï¿½tre uniques.");
+			alert.setContentText("Le login et rayon attribués pour chaque utlisateurs doivent être uniques.");
 			Stage alStage = (Stage) alert.getDialogPane().getScene().getWindow();
 			alStage.getIcons().add(new Image("file:images/icon.jpg"));
 			alert.showAndWait();
