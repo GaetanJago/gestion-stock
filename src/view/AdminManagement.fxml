@@ -80,7 +80,7 @@
                            </font>
                         </Label>
                         <TextField fx:id="nameF" GridPane.rowIndex="2" />
-                        <TextField fx:id="firstNameF" onKeyPressed="#focusToLogin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="firstNameF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="loginF" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <TextField fx:id="passwordF" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <ComboBox fx:id="roleCB" onAction="#changeRole" prefHeight="25.0" prefWidth="656.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
