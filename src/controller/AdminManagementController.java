@@ -287,7 +287,8 @@ public class AdminManagementController implements Initializable{
 				firstNameF.getText().isEmpty() || 
 				loginF.getText().isEmpty() ||
 				passwordF.getText().isEmpty() ||
-				roleCB.getValue() == null) {
+				roleCB.getValue() == null || 
+				( roleCB.getValue().getName().equalsIgnoreCase("manager") && sectionCB.getValue() == null) ) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur");
 			alert.setHeaderText("Erreur d'ajout");
@@ -305,7 +306,7 @@ public class AdminManagementController implements Initializable{
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur");
 				alert.setHeaderText("Erreur d'ajout");
-				alert.setContentText("Le login est dï¿½jï¿½ utilisï¿½.");
+				alert.setContentText("Le login est déjà utilisé.");
 				Stage alStage = (Stage) alert.getDialogPane().getScene().getWindow();
 				alStage.getIcons().add(new Image("file:images/icon.jpg"));
 				alert.showAndWait();
@@ -319,9 +320,12 @@ public class AdminManagementController implements Initializable{
 			ld.create(l);
 		}
 		else {
-			Manager m = new Manager(null, null, loginF.getText(), passwordF.getText());
+			Manager m = new Manager(nameF.getText(),  firstNameF.getText(), loginF.getText(), passwordF.getText());
 			m.setRole(roleCB.getValue());
-			m.setSection(sectionCB.getValue());
+			if(sectionCB.getValue() != null &&
+					!sectionCB.getValue().getName().equalsIgnoreCase("Aucun") ) {
+				m.setSection(sectionCB.getValue());
+			}
 			md.create(m);
 		}
 		displayUsers();

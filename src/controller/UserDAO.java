@@ -1,6 +1,6 @@
 package controller;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+//import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import model.Article;
 import model.Manager;
 import model.User;
