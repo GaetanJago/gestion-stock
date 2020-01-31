@@ -16,6 +16,7 @@ import controller.ManagerDAO;
 import controller.RoleDAO;
 import controller.SectionDAO;
 import controller.StoreDAO;
+import view.DBError;
 import view.Interface;
 
 import javax.persistence.EntityManager;
@@ -47,13 +48,18 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		PropertyConfigurator.configure("log4j.properties");
-
+		try {
 		emf = Persistence.createEntityManagerFactory("stock"); //name of persistence unit
 		em = emf.createEntityManager();
 
 		generateExample();
 
 		Application.launch(Interface.class,args);
+		}
+		catch (Exception e) {
+			System.err.println("DataBase not found");
+			Application.launch(DBError.class,args);
+		}
 	}
 
 	/**

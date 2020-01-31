@@ -94,7 +94,12 @@ public class InterfaceController implements Initializable{
 						//Change the page
 						Scene scene = new Scene(root);
 						Stage stage = (Stage) connect.getScene().getWindow();
+						boolean maximized = false;
+						if(stage.isMaximized())
+							maximized = true;
 						stage.setScene(scene);
+						if(maximized)
+							stage.setMaximized(true);
 
 						stage.centerOnScreen();
 
