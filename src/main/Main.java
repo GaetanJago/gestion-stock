@@ -52,7 +52,7 @@ public class Main {
 		emf = Persistence.createEntityManagerFactory("stock"); //name of persistence unit
 		em = emf.createEntityManager();
 
-		generateExample();
+		//generateExample();
 
 		Application.launch(Interface.class,args);
 		}
