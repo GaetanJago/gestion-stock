@@ -111,7 +111,7 @@ public class ManagerInterfaceController implements Initializable {
 		//Samples
 		/*
 		listStockRowManager.add(new RowStockManager("lala", "lolo", 45, new Spinner<Integer>()));
-		listStockRowManager.add(new RowStockManager("xperia", "€€", 96, new Spinner<Integer>()));
+		listStockRowManager.add(new RowStockManager("xperia", "", 96, new Spinner<Integer>()));
 		 */
 		listFilter.add("Tous");
 

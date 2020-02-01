@@ -11,6 +11,7 @@ import org.junit.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreDAOTest {
@@ -19,7 +20,10 @@ public class StoreDAOTest {
     private static EntityManager em;
 
     private static StoreDAO storeDAO;
-    private static LeaderDAO leaderDAO;
+
+
+    private static List<Store> storeList;
+
 
 
     //SETUP
@@ -29,7 +33,9 @@ public class StoreDAOTest {
         em = emf.createEntityManager();
 
         storeDAO = new StoreDAO(em);
-        leaderDAO = new LeaderDAO(em);
+
+
+        storeList = new ArrayList<>();
     }
 
     @Before
@@ -44,6 +50,11 @@ public class StoreDAOTest {
 
     @AfterClass
     public static void setUpAfterClass(){
+
+        for(Store store : storeList){
+            storeDAO.delete(store);
+        }
+
         em.close();
         emf.close();
     }
@@ -51,6 +62,7 @@ public class StoreDAOTest {
     @Test
     public void testCreate(){
         Store store = new Store("64 avenue Jean Portalis Tours");
+        storeList.add(store);
 
         storeDAO.create(store);
 
@@ -65,6 +77,7 @@ public class StoreDAOTest {
         int nbStoresBeforeInsert = storeDAO.getAll().size();
 
         Store store = new Store("1 rue Nationale Tours");
+        storeList.add(store);
         storeDAO.create(store);
         storeDAO.create(store);
 
@@ -77,6 +90,7 @@ public class StoreDAOTest {
         int nbStoresBeforeInsert = storeDAO.getAll().size();
 
         Store store = new Store("1 avenue Grammont Tours");
+        storeList.add(store);
         storeDAO.create(store);
 
         //Get list of all stores in the database
@@ -91,6 +105,7 @@ public class StoreDAOTest {
     @Test
     public void testDelete(){
         Store store = new Store("10 rue Nationale Tours");
+        storeList.add(store);
         storeDAO.create(store);
 
 

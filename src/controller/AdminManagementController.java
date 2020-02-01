@@ -332,7 +332,7 @@ public class AdminManagementController implements Initializable{
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur");
 				alert.setHeaderText("Erreur d'ajout");
-				alert.setContentText("Le login est déjà utilisé.");
+				alert.setContentText("Le login est dÃ©jÃ  utilisÃ©.");
 				Stage alStage = (Stage) alert.getDialogPane().getScene().getWindow();
 				alStage.getIcons().add(new Image("file:images/icon.jpg"));
 				alert.showAndWait();
@@ -422,7 +422,7 @@ public class AdminManagementController implements Initializable{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur");
 			alert.setHeaderText("Erreur de sauvegarde");
-			alert.setContentText("Le login et rayon attribués pour chaque utlisateurs doivent être uniques.");
+			alert.setContentText("Le login et rayon attribuÃ©s pour chaque utlisateurs doivent Ãªtre uniques.");
 			Stage alStage = (Stage) alert.getDialogPane().getScene().getWindow();
 			alStage.getIcons().add(new Image("file:images/icon.jpg"));
 			alert.showAndWait();

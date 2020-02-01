@@ -10,6 +10,7 @@ import org.junit.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SectionDAOTest {
@@ -20,6 +21,9 @@ public class SectionDAOTest {
     private static SectionDAO sectionDAO;
     private static ManagerDAO managerDAO;
 
+    private static List<Section> sectionList;
+    private static List<Manager> managerList;
+
 
     //SETUP
     @BeforeClass
@@ -29,6 +33,9 @@ public class SectionDAOTest {
 
         sectionDAO = new SectionDAO(em);
         managerDAO = new ManagerDAO(em);
+
+        sectionList = new ArrayList<>();
+        managerList = new ArrayList<>();
     }
 
     @Before
@@ -43,6 +50,14 @@ public class SectionDAOTest {
 
     @AfterClass
     public static void setUpAfterClass(){
+        for(Manager manager : managerList){
+            managerDAO.delete(manager);
+        }
+
+        for(Section section : sectionList){
+            sectionDAO.delete(section);
+        }
+
         em.close();
         emf.close();
     }
@@ -50,7 +65,9 @@ public class SectionDAOTest {
     @Test
     public void testCreate(){
         Section section = new Section("Chaussure");
+        sectionList.add(section);
         Manager manager = new Manager("Martin", "Jean", "jmartin", "azerty");
+        managerList.add(manager);
 
         managerDAO.create(manager);
         section.setManager(manager);
@@ -68,6 +85,7 @@ public class SectionDAOTest {
         int nbSectionsBeforeInsert = sectionDAO.getAll().size();
 
         Section section = new Section("Piscine");
+        sectionList.add(section);
         sectionDAO.create(section);
         sectionDAO.create(section);
 
@@ -79,7 +97,8 @@ public class SectionDAOTest {
         //Count how many sections are in the database before insert
         int nbSectionsBeforeInsert = sectionDAO.getAll().size();
 
-        Section section = new Section("Utilisateur révoqué");
+        Section section = new Section("Tee shirt");
+        sectionList.add(section);
         sectionDAO.create(section);
 
         //Get list of all roles in the database
@@ -94,7 +113,9 @@ public class SectionDAOTest {
     @Test
     public void testDelete(){
         Section section = new Section("Chaussure");
+        sectionList.add(section);
         Manager manager = new Manager("Monrency", "Clémence", "cmonrency", "kohF4Ii4");
+        managerList.add(manager);
 
         managerDAO.create(manager);
         section.setManager(manager);

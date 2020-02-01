@@ -12,6 +12,7 @@ import org.junit.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDAOTest {
@@ -20,7 +21,8 @@ public class RoleDAOTest {
     private static EntityManager em;
 
     private static RoleDAO roleDAO;
-    private static UserDAO userDAO;
+
+    private static List<Role> roleList;
 
 
     //SETUP
@@ -30,7 +32,8 @@ public class RoleDAOTest {
         em = emf.createEntityManager();
 
         roleDAO = new RoleDAO(em);
-        userDAO = new UserDAO(em);
+
+        roleList = new ArrayList<>();
     }
 
     @Before
@@ -45,6 +48,10 @@ public class RoleDAOTest {
 
     @AfterClass
     public static void setUpAfterClass(){
+        for(Role role : roleList){
+            roleDAO.delete(role);
+        }
+
         em.close();
         emf.close();
     }
@@ -52,6 +59,7 @@ public class RoleDAOTest {
     @Test
     public void testCreate(){
         Role role = new Role("admin");
+        roleList.add(role);
 
         roleDAO.create(role);
 
@@ -66,6 +74,7 @@ public class RoleDAOTest {
         int nbRolesBeforeInsert = roleDAO.getAll().size();
 
         Role role = new Role("Chef de rayon");
+        roleList.add(role);
         roleDAO.create(role);
         roleDAO.create(role);
 
@@ -78,6 +87,7 @@ public class RoleDAOTest {
         int nbRolesBeforeInsert = roleDAO.getAll().size();
 
         Role role = new Role("Utilisateur révoqué");
+        roleList.add(role);
         roleDAO.create(role);
 
         //Get list of all roles in the database
@@ -89,21 +99,10 @@ public class RoleDAOTest {
         Assert.assertEquals(role, roleList.get(roleList.size()-1));
     }
 
-    /*@Test
-    public void testFindById(){
-        Role role = new Role("Chef de magasin");
-        roleDAO.create(role);
-
-        User user = new User("Margand", "Anaïs", "amargand", "qdsff54esf");
-        user.setRole(role);
-        userDAO.create(user);
-
-        Assert.assertEquals(role, roleDAO.findById(role.getId()).get());
-    }*/
-
     @Test
     public void testDelete(){
         Role role = new Role("Super admin");
+        roleList.add(role);
         roleDAO.create(role);
 
         /*User user = new User("Leblanc", "Victoire", "vleblanc", "TohGhe8ae");

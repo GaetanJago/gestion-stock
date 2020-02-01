@@ -12,6 +12,7 @@ import org.junit.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderDAOTest {
@@ -22,6 +23,9 @@ public class LeaderDAOTest {
     private static LeaderDAO leaderDAO;
     private static StoreDAO storeDAO;
 
+    private static List<Leader> leaderList;
+    private static List<Store> storeList;
+
     //SETUP
     @BeforeClass
     public static void setUpBeforeClass(){
@@ -30,6 +34,8 @@ public class LeaderDAOTest {
 
         leaderDAO = new LeaderDAO(em);
         storeDAO = new StoreDAO(em);
+
+        storeList = new ArrayList<>();
     }
 
     @Before
@@ -44,6 +50,12 @@ public class LeaderDAOTest {
 
     @AfterClass
     public static void setUpAfterClass(){
+
+        for(Store store : storeList){
+            storeList.remove(store);
+        }
+
+
         em.close();
         emf.close();
     }
@@ -53,6 +65,7 @@ public class LeaderDAOTest {
         Leader leader = new Leader("Lambert", "Paul", "plambert", "password");
 
         Store store = new Store("64 avenue Jean Portalis Tours");
+        storeList.add(store);
         storeDAO.create(store);
 
         leader.setStore(store);
@@ -93,23 +106,11 @@ public class LeaderDAOTest {
         Assert.assertEquals(leader, leaderList.get(leaderList.size()-1));
     }
 
-    /*@Test
-    public void testFindById(){
-        Leader leader = new Leader("Mazuret", "René", "rmazuret", "4dsf521fsd");
-
-        Store store = new Store("64 avenue Jean Portalis Tours");
-        storeDAO.create(store);
-
-        leader.setStore(store);
-        leaderDAO.create(leader);
-
-        Assert.assertEquals(leader, leaderDAO.findById(leader.getId()).get());
-    }*/
-
     @Test
     public void testDelete(){
         Leader leader = new Leader( "Bourget" ,"Bernard", "bbourget", "sdfsdfqo545sd");
         Store store = new Store("1 rue Charles de Foucauld Tours");
+        storeList.add(store);
         storeDAO.create(store);
 
         leader.setStore(store);

@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDAOTest {
@@ -24,7 +25,8 @@ public class ArticleDAOTest {
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
-
+    private static List<Article> articleList;
+    private static List<Section> sectionList;
 
     //SETUP
     @BeforeClass
@@ -34,6 +36,9 @@ public class ArticleDAOTest {
 
         articleDAO = new ArticleDAO(em);
         sectionDAO = new SectionDAO(em);
+
+        articleList = new ArrayList<>();
+        sectionList = new ArrayList<>();
     }
 
     @Before
@@ -48,6 +53,14 @@ public class ArticleDAOTest {
 
     @AfterClass
     public static void setUpAfterClass(){
+        for(Article article : articleList){
+            articleDAO.delete(article);
+        }
+
+        for(Section section : sectionList){
+            sectionDAO.delete(section);
+        }
+
         em.close();
         emf.close();
     }
@@ -56,6 +69,7 @@ public class ArticleDAOTest {
     public void testBasicCreate() {
         //Add a basic article
         Article article = new Article("Raquette de tennis", "Babolat", 40, 5);
+        articleList.add(article);
         articleDAO.create(article);
 
         //get the new article in the database
@@ -68,7 +82,9 @@ public class ArticleDAOTest {
     @Test
     public void testCreateWithSection(){
         Article article = new Article("Chaussures de sport", "Nike", 70, 10);
+        articleList.add(article);
         Section section = new Section("Chaussure");
+        sectionList.add(section);
         article.setSection(section);
 
         sectionDAO.create(section);
@@ -88,6 +104,7 @@ public class ArticleDAOTest {
         int nbArticlesBeforeInsert = articleDAO.getAll().size();
 
         Article article = new Article("Tee shirt", "Adidas", 25, 7);
+        articleList.add(article);
         articleDAO.create(article);
         articleDAO.create(article);
 
@@ -100,6 +117,7 @@ public class ArticleDAOTest {
         int nbArticlesBeforeInsert = articleDAO.getAll().size();
 
         Article article = new Article("Ballon", "Puma", 30, 10);
+        articleList.add(article);
         articleDAO.create(article);
 
         //Get list of all articles in the database
@@ -111,24 +129,13 @@ public class ArticleDAOTest {
         Assert.assertEquals(article, articleList.get(articleList.size()-1));
     }
 
-    /*@Test
-    public void testFindById(){
-        Article article = new Article("Balle de tennis", "Artengo", 2, 40);
-
-        Section section = new Section("Balle");
-        article.setSection(section);
-        sectionDAO.create(section);
-
-        articleDAO.create(article);
-
-        Assert.assertEquals(article, articleDAO.findById(article.getId()).get());
-    }*/
-
     @Test
     public void testDelete(){
         Article article = new Article("Short", "Adidas", 30, 3);
+        articleList.add(article);
 
         Section section = new Section("Short");
+        sectionList.add(section);
         sectionDAO.create(section);
 
         article.setSection(section);
@@ -147,6 +154,7 @@ public class ArticleDAOTest {
     @Test
     public void testDeleteDoNotWorkTwoTimesWithTheSameObject(){
         Article article = new Article("Maillot de bain", "Adidas", 25, 5);
+        articleList.add(article);
         articleDAO.create(article);
 
         //Count how many articles are in the database before delete
@@ -165,12 +173,20 @@ public class ArticleDAOTest {
         Article article3 = new Article("Chaussure de marche", "Asics", 60, 2);
         Article article4 = new Article("Maillot de bain", "Adidas", 25, 5);
 
+        articleList.add(article);
+        articleList.add(article2);
+        articleList.add(article3);
+        articleList.add(article4);
+
         Section section = new Section("Chaussure");
         article.setSection(section);
         article3.setSection(section);
 
         Section section2 = new Section("Piscine");
         article4.setSection(section2);
+
+        sectionList.add(section);
+        sectionList.add(section2);
 
         sectionDAO.create(section);
         sectionDAO.create(section2);
