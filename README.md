@@ -1,10 +1,10 @@
 # gestion-stock
 
 ==================
-Installation Guide 
+# Installation Guide 
 ==================
 
-- Install server management service (easyphp or wampServer or apache with phpmyadmin)
+- Install server management services (easyphp or wampServer or apache with phpmyadmin)
 - Run server service (ex ubuntu-apache : sudo service apache2 start)
 - Go to phpmyadmin (127.0.0.1), create database with this name : stock_magasin
 - Inside file "stock_magasin.sql" copy all sql lines
@@ -12,16 +12,17 @@ Installation Guide
 - Go to SQL tab
 - Paste sql lines in the field and execute
 
-- Install java runtime 8 or 11 (jre 8 or 11) 
-
-The application is now usable
-WINDOWS : double-clic jar file on windows
-UBUNTU : java -jar Stock_Management.jar
+- Install java runtime 11
+- Open xml file in [DI4][DERENNE-JAGOREL]\Application\src\META-INF\persistence.xml
+- Set you login and your password in those lines between value quotes :
+	<property name="javax.persistence.jdbc.user" value="root"/>
+    <property name="javax.persistence.jdbc.password" value=""/>
+- Run Stock_Management.jar with java 11
 
 
 
 ==========
-User Guide
+# User Guide
 ==========
 
 By default you have somes users

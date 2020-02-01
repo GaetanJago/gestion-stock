@@ -220,6 +220,7 @@ public class AdminStockController implements Initializable{
 			row.getModify().increment();
 			row.getModify().decrement();
 			a.setQuantity(a.getQuantity() + row.getModify().getValue());
+			a.setName(row.getProduct().getText());
 			
 			ad.save();
 			//sd.save();
