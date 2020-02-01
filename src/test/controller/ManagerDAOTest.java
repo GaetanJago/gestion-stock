@@ -10,6 +10,7 @@ import org.junit.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerDAOTest {
@@ -20,6 +21,9 @@ public class ManagerDAOTest {
     private static ManagerDAO managerDAO;
     private static SectionDAO sectionDAO;
 
+    private static List<Manager> managerList;
+    private static List<Section> sectionList;
+
 
     //SETUP
     @BeforeClass
@@ -29,6 +33,9 @@ public class ManagerDAOTest {
 
         managerDAO = new ManagerDAO(em);
         sectionDAO = new SectionDAO(em);
+
+        managerList = new ArrayList<>();
+        sectionList = new ArrayList<>();
     }
 
     @Before
@@ -43,6 +50,14 @@ public class ManagerDAOTest {
 
     @AfterClass
     public static void setUpAfterClass(){
+        for(Manager manager : managerList){
+            managerDAO.delete(manager);
+        }
+
+        for(Section section : sectionList){
+            sectionDAO.delete(section);
+        }
+
         em.close();
         emf.close();
     }
@@ -50,8 +65,10 @@ public class ManagerDAOTest {
     @Test
     public void testCreate(){
         Manager manager = new Manager("Lambert", "Paul", "plambert", "password");
+        managerList.add(manager);
 
         Section section = new Section("Sports d'hiver");
+        sectionList.add(section);
         sectionDAO.create(section);
 
         manager.setSection(section);
@@ -69,6 +86,7 @@ public class ManagerDAOTest {
         int nbManagersBeforeInsert = managerDAO.getAll().size();
 
         Manager manager = new Manager("Martin", "Jerome", "jmartin", "password");
+        managerList.add(manager);
         managerDAO.create(manager);
         managerDAO.create(manager);
 
@@ -82,6 +100,7 @@ public class ManagerDAOTest {
         int nbManagersBeforeInsert = managerDAO.getAll().size();
 
         Manager manager = new Manager("Guibord", "Joanna", "jguibord", "12dfjnvre");
+        managerList.add(manager);
         managerDAO.create(manager);
 
         //Get list of all managers in the database
@@ -93,23 +112,13 @@ public class ManagerDAOTest {
         Assert.assertEquals(manager, managerList.get(managerList.size()-1));
     }
 
-    /*@Test
-    public void testFindById(){
-        Manager manager = new Manager("Poissonnier", "Emmanuel", "epoissonier", "dfsfrfds224e");
-
-        Section section = new Section("Balle");
-        sectionDAO.create(section);
-        manager.setSection(section);
-        managerDAO.create(manager);
-
-        Assert.assertEquals(manager, managerDAO.findById(manager.getId()).get());
-    }*/
-
     @Test
     public void testDelete(){
         Manager manager = new Manager("Authier", "Ernest", "eauthier", "ChohR9dio");
+        managerList.add(manager);
 
         Section section = new Section("Plongée");
+        sectionList.add(section);
         sectionDAO.create(section);
         manager.setSection(section);
         managerDAO.create(manager);

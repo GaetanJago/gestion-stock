@@ -10,6 +10,7 @@ import org.junit.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOTest {
@@ -20,6 +21,8 @@ public class UserDAOTest {
     private static UserDAO userDAO;
     private static RoleDAO roleDAO;
 
+    private static List<User> userList;
+    private static List<Role> roleList;
 
     //SETUP
     @BeforeClass
@@ -29,6 +32,9 @@ public class UserDAOTest {
 
         userDAO = new UserDAO(em);
         roleDAO = new RoleDAO(em);
+
+        userList = new ArrayList<>();
+        roleList = new ArrayList<>();
     }
 
     @Before
@@ -43,6 +49,16 @@ public class UserDAOTest {
 
     @AfterClass
     public static void setUpAfterClass(){
+        for(User user : userList){
+            userDAO.delete(user);
+        }
+
+        for (Role role : roleList) {
+            roleDAO.delete(role);
+        }
+
+
+
         em.close();
         emf.close();
     }
@@ -50,8 +66,11 @@ public class UserDAOTest {
     @Test
     public void testCreate(){
         User user = new User("Lambert", "Paul", "plambert", "password");
+        userList.add(user);
 
         Role role = new Role("Admin");
+        roleList.add(role);
+
         roleDAO.create(role);
 
         user.setRole(role);
@@ -69,6 +88,7 @@ public class UserDAOTest {
         int nbUsersBeforeInsert = userDAO.getAll().size();
 
         User user = new Leader("Pascal", "Patrick", "jmartin", "password");
+        userList.add(user);
         userDAO.create(user);
         userDAO.create(user);
 
@@ -82,7 +102,9 @@ public class UserDAOTest {
 
         //Creation of a user with a role
         User user = new User("Lesage", "Patricia", "plesage", "sdfsdhfjk");
+        userList.add(user);
         Role role = new Role("Admin");
+        roleList.add(role);
         roleDAO.create(role);
 
         user.setRole(role);
@@ -101,8 +123,10 @@ public class UserDAOTest {
     @Test
     public void testDelete(){
         User user = new User("Clement", "Paul", "pclement", "password");
+        userList.add(user);
 
         Role role = new Role("Admin");
+        roleList.add(role);
         roleDAO.create(role);
 
         user.setRole(role);
@@ -121,6 +145,7 @@ public class UserDAOTest {
     @Test
     public void testAuthenticate(){
         User user = new User("Henry", "Jean", "jhenry", "password123");
+        userList.add(user);
 
         userDAO.create(user);
 
